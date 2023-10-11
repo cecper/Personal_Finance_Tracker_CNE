@@ -1,10 +1,9 @@
-export class PiggyBank {
+export class Piggybank {
     private readonly piggyBankId: number
     private name: string
     private balance: number
     private userId: number
     private transactions: number[]
-
 
 
     constructor(name:string,balance:number,userId:number,transactions:number[],piggyBankId:number) {

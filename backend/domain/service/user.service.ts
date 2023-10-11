@@ -1,11 +1,11 @@
 import {User} from '../model/user'
-import {CosmosUserRepository} from '../data-access/cosmos-user-repository'
+import {UserRepository} from '../data-access/user.repository'
 
 
 export class UserServices {
 
     private async getRepo() {
-        return CosmosUserRepository.getInstance();
+        return UserRepository.getInstance();
     }
 
     //create user
