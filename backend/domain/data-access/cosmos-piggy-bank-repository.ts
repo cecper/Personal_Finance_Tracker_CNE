@@ -62,14 +62,8 @@ export class CosmosPiggyBankRepository {
     }
 
     async  getPiggyBankById(piggyBankId: number) {
-         /*= await this.container.item("2c82bfe6-e591-4be7-993d-3b1ee6791bb1")*/
-        var test = await this.container.item("2c82bfe6-e591-4be7-993d-3b1ee6791bb1").read();
+         //get piggybank with id "
 
-        console.log("test: " + test);
-        console.log("test2: " + test.resource);
-
-
-        return test;
 
 
 
