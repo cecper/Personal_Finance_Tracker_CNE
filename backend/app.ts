@@ -12,6 +12,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var piggybankRouter = require('./routes/piggybank.routes')
 var userRouter = require('./routes/user.routes')
+var transactionRouter = require('./routes/transaction.routes')
 dotenv.config();
 var app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter)
 app.use('/piggybank', piggybankRouter)
+app.use('/transaction', transactionRouter)
 
 
 // catch 404 and forward to error handler
