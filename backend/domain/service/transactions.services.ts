@@ -2,7 +2,8 @@
 import { Transaction } from "../model/transaction";
 import { PiggybankRepository } from "../data-access/piggybank.repository";
 
-export class PiggybankServices {
+export class TransactionsServices {
+
 
 
 

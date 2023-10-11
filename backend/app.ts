@@ -10,8 +10,8 @@ var logger = require('morgan');
 
 
 var indexRouter = require('./routes/index');
-var piggybankRouter = require('./routes/piggy-bank-routes')
-var userRouter = require('./routes/user-routes')
+var piggybankRouter = require('./routes/piggybank.routes')
+var userRouter = require('./routes/user.routes')
 dotenv.config();
 var app = express();
 
