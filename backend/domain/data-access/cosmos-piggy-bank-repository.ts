@@ -17,11 +17,18 @@ export class CosmosPiggyBankRepository {
   static async getInstance() {
     if (!this.instance) {
 
+      console.log("Creating Cosmos DB client...");
+      console.log("COSMOS_KEY: " + process.env.COSMOS_KEY);
+      console.log("COSMOS_ENDPOINT: " + process.env.COSMOS_ENDPOINT);
+      console.log("COSMOS_DATABASE_NAME: " + process.env.COSMOS_DATABASE_NAME);
+
+
+
       const key = process.env.COSMOS_KEY;
       const endpoint = process.env.COSMOS_ENDPOINT;
       const databaseName = process.env.COSMOS_DATABASE_NAME;
-      const containerName = "users";
-      const partitionKeyPath = ["/userId"];
+      const containerName = "piggy-bank";
+      const partitionKeyPath = ["/piggybankId"];
 
       if (!key || !endpoint) {
         throw new Error("Azure Cosmos DB Key, Endpoint or Database Name not provided. Exiting...");
@@ -50,7 +57,10 @@ export class CosmosPiggyBankRepository {
 
     //create 
     async createPiggyBank(piggyBank: PiggyBank) {
+        console.log("piggyBank repo: " + piggyBank);
+
         const { resource } = await this.container.items.create(piggyBank);
+        console.log("resource: " + resource);
         return resource;
     }
 
