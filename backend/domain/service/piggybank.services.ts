@@ -17,8 +17,15 @@ export class PiggybankServices {
 //create piggy
     async createPiggyBank(piggyBank: PiggyBank) {
         const repo = await this.getRepo();
-        console.log("piggyBank service: " + piggyBank);
+
         return repo.createPiggyBank(piggyBank);
+    }
+
+    async getPiggyBankById(piggyBankId: number) {
+        const repo = await this.getRepo();
+
+
+        return repo.getPiggyBankById(piggyBankId);
     }
 }
 

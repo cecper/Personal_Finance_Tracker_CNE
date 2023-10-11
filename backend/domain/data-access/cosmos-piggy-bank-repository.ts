@@ -17,10 +17,7 @@ export class CosmosPiggyBankRepository {
   static async getInstance() {
     if (!this.instance) {
 
-      console.log("Creating Cosmos DB client...");
-      console.log("COSMOS_KEY: " + process.env.COSMOS_KEY);
-      console.log("COSMOS_ENDPOINT: " + process.env.COSMOS_ENDPOINT);
-      console.log("COSMOS_DATABASE_NAME: " + process.env.COSMOS_DATABASE_NAME);
+
 
 
 
@@ -64,4 +61,17 @@ export class CosmosPiggyBankRepository {
         return resource;
     }
 
+    async  getPiggyBankById(piggyBankId: number) {
+         /*= await this.container.item("2c82bfe6-e591-4be7-993d-3b1ee6791bb1")*/
+        var test = await this.container.item("2c82bfe6-e591-4be7-993d-3b1ee6791bb1").read();
+
+        console.log("test: " + test);
+        console.log("test2: " + test.resource);
+
+
+        return test;
+
+
+
+    }
 }

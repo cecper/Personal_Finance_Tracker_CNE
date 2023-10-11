@@ -5,12 +5,14 @@ export class PiggyBank {
     private userId: number
     private transactions: number[]
 
-    constructor(name:string,balance:number,userId:number,transactions:number[],piggyBankId: number) {
+
+
+    constructor(name:string,balance:number,userId:number,transactions:number[],piggyBankId:number) {
         this.name = name
         this.balance = balance
         this.userId = userId
         this.transactions = transactions
-        this.piggyBankId=piggyBankId
+        this.piggyBankId = piggyBankId
     }
 
     get getPiggyBankId(): number {
