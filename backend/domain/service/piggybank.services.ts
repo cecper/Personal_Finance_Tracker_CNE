@@ -21,8 +21,6 @@ export class PiggybankServices {
 
     async getPiggyBankById(piggyBankId: number) {
         const repo = await this.getRepo();
-
-
         return repo.getPiggyBankById(piggyBankId);
     }
 

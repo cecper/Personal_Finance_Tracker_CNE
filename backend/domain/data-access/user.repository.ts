@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 import {  Container } from "@azure/cosmos";
 import {Connection} from "./connection";
 
+const jwt =require('jsonwebtoken');
 
 const saltRounds = 10;
 
@@ -36,11 +37,42 @@ export class UserRepository {
     }
 
     // user validate password
-    async validatePassword(user: User): Promise<boolean> {
-        const {resource} = await this.container.item(user.getEmail, user.getEmail).read();
-        const dbUser = resource as User;
-        return await compare(user.getPassword, dbUser.getPassword);
+    async validatePassword(user: User) {
+        //find user by email using an sql query
+        const querySpec = {
+            query: "SELECT * FROM users u WHERE u.email = @email",
+            parameters: [
+                {
+                    name: "@email",
+                    value: user.getEmail
+                }
+                ]
+        }
+        const {resources} = await this.container.items.query(querySpec).fetchAll();
 
+        if(!resources[0]){
+            return null;
+        }
+
+        if (user && bcrypt.compare(user.getPassword, resources[0]["password"])) {
+            console.log("passwords match");
+            return this.generateToken(user)
+        }
+        return null;
+    }
+
+
+    async generateToken(user:User) {
+        const payload = {
+            userid: user.getEmail,
+            username: user.getUsername,
+        };
+        const options = {
+            expiresIn: "1h",
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, options);
+
+        return token;
     }
 
     //create a user and hash the password
