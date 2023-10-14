@@ -7,8 +7,7 @@ var router = express.Router();
 
 //create user
 router.post('/create', async function (req: any, res: any, next: any) {
-    const user = new User(req.body.email, req.body.password, req.body.username, );
-
+    const user = new User(req.body.email,req.body.username, req.body.password );
     const result = await userServices.createUser(user);
     res.send(result);
 });

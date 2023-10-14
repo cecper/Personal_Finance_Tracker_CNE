@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 import {  Container } from "@azure/cosmos";
 import {Connection} from "./connection";
+import dotenv from "dotenv";
 
 const jwt =require('jsonwebtoken');
 
@@ -55,7 +56,6 @@ export class UserRepository {
         }
 
         if (user && bcrypt.compare(user.getPassword, resources[0]["password"])) {
-            console.log("passwords match");
             return this.generateToken(user)
         }
         return null;
@@ -71,7 +71,6 @@ export class UserRepository {
             expiresIn: "1h",
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, options);
-
         return token;
     }
 

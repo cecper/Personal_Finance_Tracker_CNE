@@ -15,7 +15,9 @@
               <label for="password" class="form-label">Password:</label>
               <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
             </div>
+
             <button type="button" class="btn btn-primary" (click)="login()">Login</button>
+            <div><a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Not registered? Click here to register</a></div>
           </form>
         </div>
       </div>
