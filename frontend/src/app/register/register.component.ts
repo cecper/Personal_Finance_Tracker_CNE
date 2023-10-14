@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterServiceService } from '../../service/register/register-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import {RegistrationData} from "../../types/registration.type";
+import {RegistrationData} from "../../types/types";
 
 @Component({
   selector: 'app-register',

@@ -6,14 +6,14 @@
           <h2>Login</h2>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="form">
             <div class="mb-3">
               <label for="username" class="form-label">Username:</label>
-              <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+              <input type="text" class="form-control" id="username" formControlName="username" name="username" required>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+              <input type="password" class="form-control" id="password" formControlName="password" name="password" required>
             </div>
 
             <button type="button" class="btn btn-primary" (click)="login()">Login</button>

@@ -24,9 +24,10 @@ router.post('/create-test', async function (req: any, res: any, next: any) {
 
 //validate password
 router.post('/login', async function (req: any, res: any, next: any) {
-    const user = new User(req.body.email, req.body.password, req.body.username, );
+    const password = req.body.password;
+    const username= req.body.username;
 
-    const token = await userServices.validatePassword(user);
+    const token = await userServices.validatePassword(username,password);
     if(token) {
         res.status(200).json({message: 'Authentication successful', token});
     }

@@ -38,14 +38,14 @@ export class UserRepository {
     }
 
     // user validate password
-    async validatePassword(user: User) {
+    async validatePassword(username:string,password:string) {
         //find user by email using an sql query
         const querySpec = {
-            query: "SELECT * FROM users u WHERE u.email = @email",
+            query: "SELECT * FROM users u WHERE u.username = @username",
             parameters: [
                 {
-                    name: "@email",
-                    value: user.getEmail
+                    name: "@username",
+                    value: username
                 }
                 ]
         }
@@ -54,8 +54,9 @@ export class UserRepository {
         if(!resources[0]){
             return null;
         }
+        const user = new User(resources[0]["email"],resources[0]["username"],resources[0]["password"]);
 
-        if (user && bcrypt.compare(user.getPassword, resources[0]["password"])) {
+        if (user && bcrypt.compare(password, resources[0]["password"])) {
             return this.generateToken(user)
         }
         return null;
