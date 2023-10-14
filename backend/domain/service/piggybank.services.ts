@@ -23,8 +23,6 @@ export class PiggybankServices {
         const repo = await this.getRepo();
         return repo.getPiggyBankById(piggyBankId);
     }
-
-
 }
 
 export const piggybankServices = new PiggybankServices();

@@ -16,9 +16,9 @@ export class UserServices {
     }
 
     // user validate password
-    async validatePassword(user: User): Promise<boolean> {
+    async validatePassword(username:string,password:string): Promise<boolean> {
         const repo = await this.getRepo();
-        return repo.validatePassword(user);
+        return repo.validatePassword(username,password);
     }
 
     //get a user by email
