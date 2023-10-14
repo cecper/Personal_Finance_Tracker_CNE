@@ -28,14 +28,12 @@ router.post('/login', async function (req: any, res: any, next: any) {
     const user = new User(req.body.email, req.body.password, req.body.username, );
 
     const token = await userServices.validatePassword(user);
-    console.log(token);
     if(token) {
         res.status(200).json({message: 'Authentication successful', token});
     }
     else {
         res.status(401).json({message: 'Authentication failed'});
     }
-
 });
 
 
