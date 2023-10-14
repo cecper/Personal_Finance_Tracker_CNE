@@ -1,16 +1,17 @@
-export class PiggyBank {
+export class Piggybank {
     private readonly piggyBankId: number
     private name: string
     private balance: number
     private userId: number
     private transactions: number[]
 
-    constructor(name:string,balance:number,userId:number,transactions:number[],piggyBankId: number) {
+
+    constructor(name:string,balance:number,userId:number,transactions:number[],piggyBankId:number) {
         this.name = name
         this.balance = balance
         this.userId = userId
         this.transactions = transactions
-        this.piggyBankId=piggyBankId
+        this.piggyBankId = piggyBankId
     }
 
     get getPiggyBankId(): number {

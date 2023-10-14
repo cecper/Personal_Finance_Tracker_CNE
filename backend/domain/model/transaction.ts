@@ -1,4 +1,4 @@
-import {PiggyBank} from "./piggy-bank";
+import {Piggybank} from "./piggybank";
 
 export class Transaction {
 
