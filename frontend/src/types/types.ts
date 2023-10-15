@@ -8,3 +8,9 @@ export interface LoginData {
   username: string;
   password: string;
 }
+
+export interface CreatePiggybankData {
+  name: string;
+  balance: number;
+  userId: string;
+}

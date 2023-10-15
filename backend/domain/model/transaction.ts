@@ -71,6 +71,4 @@ export class Transaction {
     set setReceiver(value: string) {
         this.receiver = value;
     }
-
-
 }

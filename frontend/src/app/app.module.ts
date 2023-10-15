@@ -8,13 +8,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './register/register.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
+import { PiggybankoverviewComponent } from './piggybank/piggybankoverview/piggybankoverview.component';
+import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankcreate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    PiggybankoverviewComponent,
+    PiggybankcreateComponent
   ],
   imports: [
     BrowserModule,

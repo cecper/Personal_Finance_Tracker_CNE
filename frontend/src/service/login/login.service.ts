@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {LoginData} from "../../types/types";
 import {Observable, tap} from "rxjs";
+import * as auth from "../authorization";
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,8 @@ export class LoginService {
     localStorage.setItem('username', username);
   }
 
-
+  getUserId(username: string): Observable<any> {
+    const headers = auth.getAuthorizationHeader();
+    return this.http.get(`${this.baseUrl}/getUserId/${username}`, { headers });
+  }
 }

@@ -89,6 +89,24 @@ export class UserRepository {
         return resource as User;
     }
 
+    async getUserId(username: string): Promise<string> {
+        const querySpec = {
+            query: "SELECT * FROM users u WHERE u.username = @username",
+            parameters: [
+                {
+                    name: "@username",
+                    value: username
+                }
+            ]
+        }
+
+        const {resources} = await this.container.items.query(querySpec).fetchAll();
+        if(!resources[0]){
+            return "";
+        }
+        return resources[0]["id"];
+    }
+
 
 
 

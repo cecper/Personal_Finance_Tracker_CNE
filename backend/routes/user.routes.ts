@@ -36,5 +36,19 @@ router.post('/login', async function (req: any, res: any, next: any) {
     }
 });
 
+//get userid by username
+router.get('/getUserId/:username', async function (req: any, res: any, next: any) {
+    const username = req.params.username;  // Use req.params instead of req.param
+    const result = await userServices.getUserId(username);
+
+    if(result) {
+        res.status(200).json(result);
+    }
+    else {
+        res.status(400).json({message: 'User not found'});
+    }
+});
+
+
 
 module.exports = router;

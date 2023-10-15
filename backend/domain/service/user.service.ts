@@ -27,6 +27,11 @@ export class UserServices {
         return repo.getUserByEmail(email);
     }
 
+    async getUserId(username: string): Promise<string> {
+        const repo = await this.getRepo();
+        return repo.getUserId(username);
+    }
+
 
 }
 

@@ -13,10 +13,11 @@ router.get('/getall', async function (req: any, res: any, next: any) {
 );
 
 
+
 //create piggybank
 router.post('/create', async function (req: any, res: any, next: any) {
 
-    const piggyBank = new Piggybank(req.body.name, req.body.balance, req.body.userId, req.body.transactions, req.body.piggybankId);
+    const piggyBank = new Piggybank(req.body.name, req.body.balance, req.body.userId, req.body.piggybankId);
     const result = await piggybankServices.createPiggyBank(piggyBank);
 
     res.send(result);

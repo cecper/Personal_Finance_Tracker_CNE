@@ -21,5 +21,6 @@ export class AppComponent {
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem('username');
+
   }
 }
