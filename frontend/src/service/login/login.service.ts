@@ -22,9 +22,4 @@ export class LoginService {
     localStorage.setItem('id_token', authResult.token);
     localStorage.setItem('username', username);
   }
-
-  getUserId(username: string): Observable<any> {
-    const headers = auth.getAuthorizationHeader();
-    return this.http.get(`${this.baseUrl}/getUserId/${username}`, { headers });
-  }
 }

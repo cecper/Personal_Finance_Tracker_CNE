@@ -12,5 +12,5 @@ export interface LoginData {
 export interface CreatePiggybankData {
   name: string;
   balance: number;
-  userId: string;
+  username: string;
 }

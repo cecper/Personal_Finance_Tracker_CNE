@@ -29,10 +29,10 @@ router.post('/login', async function (req: any, res: any, next: any) {
 
     const token = await userServices.validatePassword(username,password);
     if(token) {
-        res.status(200).json({message: 'Authentication successful', token});
+        await res.status(200).json({message: 'Authentication successful', token});
     }
     else {
-        res.status(401).json({message: 'Authentication failed'});
+        await res.status(401).json({message: 'Authentication failed'});
     }
 });
 
@@ -42,10 +42,10 @@ router.get('/getUserId/:username', async function (req: any, res: any, next: any
     const result = await userServices.getUserId(username);
 
     if(result) {
-        res.status(200).json(result);
+        await res.status(200).json(result);
     }
     else {
-        res.status(400).json({message: 'User not found'});
+        await res.status(400).json({message: 'User not found'});
     }
 });
 

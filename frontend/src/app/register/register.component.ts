@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RegisterServiceService } from '../../service/register/register-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import {RegistrationData} from "../../types/types";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,7 @@ export class RegisterComponent {
 
 
 
-  constructor(private service: RegisterServiceService, private fb: FormBuilder) {}
+  constructor(private service: RegisterServiceService, private fb: FormBuilder,private router: Router) {}
 
   register() {
     this.submitted = true;
@@ -32,12 +34,9 @@ export class RegisterComponent {
 
       this.service.registerUser(formData).subscribe(
         (response) => {
-          console.log('Registration successful:', response);
-          // You can handle the response as needed
+          this.router.navigateByUrl('/home');
         },
         (error) => {
-          console.error('Error registering:', error);
-          // Handle the error as needed
         }
       );
     } else {

@@ -20,6 +20,6 @@ export class PiggybankService {
 
   getAllPiggybanks(): Observable<any> {
     const headers = auth.getAuthorizationHeader();
-    return this.http.get(`${this.baseUrl}/getall`, { headers });
+    return this.http.post(`${this.baseUrl}/getall`,{"username":auth.getUsername()}, { headers });
   }
 }

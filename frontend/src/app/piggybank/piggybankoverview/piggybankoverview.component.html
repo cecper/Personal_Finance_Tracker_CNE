@@ -1,1 +1,10 @@
-<p>piggybankoverview works!</p>
+<div>
+    <h2>Piggybank Overview</h2>
+    <ul>
+        <li *ngFor="let piggybank of piggybanks">
+            <h3>{{ piggybank.name }}</h3>
+            <p>Balance: {{ piggybank.balance }}</p>
+            <!-- Add other details you want to display -->
+        </li>
+    </ul>
+</div>

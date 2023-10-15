@@ -34,7 +34,6 @@ export class LoginComponent {
       this.authService.login(loginData)
         .subscribe(
           () => {
-            console.log("User is logged in");
             this.router.navigateByUrl('/');
           }
         );

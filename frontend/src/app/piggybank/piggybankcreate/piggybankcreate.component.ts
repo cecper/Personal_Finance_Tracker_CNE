@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PiggybankService } from "../../../service/piggybank/piggybank.service";
 import { CreatePiggybankData } from "../../../types/types";
 import { LoginService } from "../../../service/login/login.service";
+import {getUsername} from "../../../service/authorization";
 
 @Component({
   selector: 'app-piggybankcreate',
@@ -21,45 +22,28 @@ export class PiggybankcreateComponent {
   create() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      console.log(this.getLoggedInUserId())
-      this.getLoggedInUserId().subscribe(
-        (userId: string) => {
-          const formData: CreatePiggybankData = {
-            name: this.registerForm.get('name')?.value || '',
-            balance: this.registerForm.get('balance')?.getRawValue() || 0, // Assuming balance is a number
-            userId: userId,
-          };
 
-          if (formData.userId === '') {
-            console.error('User ID is empty, cannot create piggybank');
-            return;
-          }
+      const formData: CreatePiggybankData = {
+        name: this.registerForm.get('name')?.value || '',
+        balance: this.registerForm.get('balance')?.getRawValue() || 0, // Assuming balance is a number
+        username: getUsername(),
+      };
 
-          this.service.createPiggybank(formData).subscribe(
-            (response: any) => {
-              console.log('Piggybank creation successful:', response);
-              // Handle success as needed
-            },
-            (error: any) => {
-              console.error('Error creating piggybank:', error);
-              // Handle error as needed
-            }
-          );
+      if (formData.username === '') {
+        console.error('User ID is empty, cannot create piggybank');
+        return;
+      }
+
+      this.service.createPiggybank(formData).subscribe(
+        (response: any) => {
+          console.log('Piggybank creation successful:', response);
+          // Handle success as needed
         },
         (error: any) => {
-          console.error('Error getting user ID:', error);
-          // Handle error accordingly
+          console.error('Error creating piggybank:', error);
+          // Handle error as needed
         }
       );
-    } else {
-      // Form is invalid, handle accordingly
     }
-  }
-
-  getLoggedInUserId() {
-    const username = localStorage.getItem('username') || '';
-    // Assuming getLoggedInUserId returns an observable
-    console.log(this.loginservice.getUserId(username))
-    return this.loginservice.getUserId(username);
   }
 }

@@ -8,15 +8,15 @@ export class PiggybankServices {
     return PiggybankRepository.getInstance();
   }
 
-    async getAllPiggyBanks() {
+    async getAllPiggyBanks(username:string) {
         const repo = await this.getRepo();
-        return repo.getAllPiggyBanks();
+        return repo.getAllPiggyBanks(username);
     }
 
-    async createPiggyBank(piggyBank: Piggybank) {
+    async createPiggyBank(piggyBank: Piggybank,username: string) {
         const repo = await this.getRepo();
 
-        return repo.createPiggyBank(piggyBank);
+        return repo.createPiggyBank(piggyBank,username);
     }
 
     async getPiggyBankById(piggyBankId: number) {
