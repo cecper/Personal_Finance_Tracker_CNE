@@ -8,7 +8,7 @@ import { PiggybankService } from '../../../service/piggybank/piggybank.service';
 })
 export class PiggybankoverviewComponent implements OnInit {
     piggybanks: any[] = []; // Update the type according to your data structure
-
+  serverError: string | null = null;
     constructor(private piggybankService: PiggybankService) {}
 
     ngOnInit(): void {
@@ -18,11 +18,10 @@ export class PiggybankoverviewComponent implements OnInit {
     loadPiggybanks() {
         this.piggybankService.getAllPiggybanks().subscribe(
             (data: any) => {
-                console.log(data)
-                this.piggybanks = data; // Assuming your response is an array of piggybanks
+                this.piggybanks = data;
             },
             (error: any) => {
-                console.error('Error loading piggybanks:', error);
+                this.serverError = "Something went wrong. Please try again later.";
             }
         );
     }

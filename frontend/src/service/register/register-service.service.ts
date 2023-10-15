@@ -13,4 +13,8 @@ export class RegisterServiceService {
   registerUser(data: RegistrationData): Observable<any> {
     return this.http.post(`${this.baseUrl}/create`, data);
   }
+
+  checkDupeUsername(username: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/checkDupeUsername/${username}`);
+  }
 }

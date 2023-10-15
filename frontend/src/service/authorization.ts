@@ -9,4 +9,8 @@ function getUsername(): string {
   return localStorage.getItem('username') || '';
 }
 
-export { getAuthorizationHeader, getUsername };
+function isLoggedIn(): boolean {
+  return !!localStorage.getItem('id_token');
+}
+
+export { getAuthorizationHeader, getUsername, isLoggedIn };

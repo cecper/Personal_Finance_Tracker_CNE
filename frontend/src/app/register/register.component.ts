@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 })
 
 export class RegisterComponent {
+  serverError: string | null = null;
   submitted = false;
   public registerForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
@@ -24,6 +25,7 @@ export class RegisterComponent {
   constructor(private service: RegisterServiceService, private fb: FormBuilder,private router: Router) {}
 
   register() {
+    this.serverError = null;
     this.submitted = true;
     if (this.registerForm.valid) {
       const formData: RegistrationData = {
@@ -32,11 +34,14 @@ export class RegisterComponent {
         password: this.registerForm.get('password')?.value || '',
       };
 
+
+
       this.service.registerUser(formData).subscribe(
         (response) => {
           this.router.navigateByUrl('/home');
         },
         (error) => {
+          this.serverError = "Failed to register your account. Please try again later.";
         }
       );
     } else {

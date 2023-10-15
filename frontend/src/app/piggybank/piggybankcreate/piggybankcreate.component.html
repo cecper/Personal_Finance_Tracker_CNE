@@ -1,5 +1,3 @@
-
-
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -12,7 +10,7 @@
             <!-- Name Field -->
             <div class="mb-3">
               <label for="name" class="form-label">Piggybank Name:</label>
-              <input type="text" class="form-control" id="name" formControlName="name" required>
+              <input (keyup.enter)="create()" type="text" class="form-control" id="name" formControlName="name" required>
               <div *ngIf="(submitted || registerForm.get('name')?.touched) && registerForm.get('name')?.hasError('required')"
                    class="text-danger">
                 Piggybank Name is required.
@@ -26,11 +24,20 @@
             <!-- Balance Field -->
             <div class="mb-3">
               <label for="balance" class="form-label">Initial Balance:</label>
-              <input type="number" class="form-control" id="balance" formControlName="balance" required>
+              <input (keyup.enter)="create()" type="number" class="form-control" id="balance" formControlName="balance" required>
               <div *ngIf="(submitted || registerForm.get('balance')?.touched) && registerForm.get('balance')?.hasError('required')"
                    class="text-danger">
                 Initial Balance is required.
               </div>
+              <div *ngIf="(submitted || registerForm.get('balance')?.touched) && registerForm.get('balance')?.hasError('pattern')"
+                   class="text-danger">
+                Balance needs to be a number.
+              </div>
+            </div>
+
+            <!-- Display server-side errors -->
+            <div *ngIf="serverError" class="text-danger">
+              {{ serverError }}
             </div>
 
             <button type="button" class="btn btn-primary" (click)="create()">Create Piggybank</button>

@@ -3,7 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PiggybankService } from "../../../service/piggybank/piggybank.service";
 import { CreatePiggybankData } from "../../../types/types";
 import { LoginService } from "../../../service/login/login.service";
-import {getUsername} from "../../../service/authorization";
+import { getUsername } from "../../../service/authorization";
+import { Router } from '@angular/router'; // Import Router
+
+// ... (your imports)
 
 @Component({
   selector: 'app-piggybankcreate',
@@ -12,36 +15,42 @@ import {getUsername} from "../../../service/authorization";
 })
 export class PiggybankcreateComponent {
   submitted = false;
+  serverError: string | null = null;
+
   public registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    balance: ['', [Validators.required]], // Assuming balance is a number
+    balance: ['', [Validators.required, Validators.pattern("^[0-9]*$") ]],
   });
 
-  constructor(private loginservice: LoginService, private service: PiggybankService, private fb: FormBuilder) {}
+  constructor(
+    private service: PiggybankService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   create() {
     this.submitted = true;
-    if (this.registerForm.valid) {
+    this.serverError = null; // Reset serverError
 
+    if (this.registerForm.valid) {
       const formData: CreatePiggybankData = {
         name: this.registerForm.get('name')?.value || '',
-        balance: this.registerForm.get('balance')?.getRawValue() || 0, // Assuming balance is a number
+        balance: this.registerForm.get('balance')?.getRawValue() || 0,
         username: getUsername(),
       };
 
       if (formData.username === '') {
-        console.error('User ID is empty, cannot create piggybank');
+        this.serverError = 'Failed to create piggybank. Please make sure you are logged.';
         return;
       }
 
       this.service.createPiggybank(formData).subscribe(
         (response: any) => {
-          console.log('Piggybank creation successful:', response);
-          // Handle success as needed
+          // Redirect to the desired page upon successful response
+          this.router.navigate(['/piggybank/overview']);
         },
         (error: any) => {
-          console.error('Error creating piggybank:', error);
-          // Handle error as needed
+          this.serverError = 'Failed to create piggybank. Please try again later.';
         }
       );
     }

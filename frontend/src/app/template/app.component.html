@@ -1,18 +1,18 @@
-<div *ngIf="isLoggedIn()">
+<div *ngIf="updateLoginStatus()">
   <p>Welcome, {{ getUsername() }}! You are now logged in.</p>
 </div>
-<div *ngIf="!isLoggedIn()">
+<div *ngIf="!updateLoginStatus()">
   <p>You are not logged in.</p>
 </div>
 
 <nav>
   <ul>
     <li><a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a></li>
-    <li><a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a></li>
-    <li><a [routerLink]="" (click)="logout()" routerLinkActive="active" ariaCurrentWhenActive="page">Logout</a></li>
-    <li><a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a></li>
-    <li *ngIf="isLoggedIn()"><a routerLink="/piggybank/create" routerLinkActive="active" ariaCurrentWhenActive="page">Create Piggybank</a></li>
-    <li *ngIf="isLoggedIn()"><a routerLink="/piggybank/overview" routerLinkActive="active" ariaCurrentWhenActive="page">Overview Piggybank</a></li>
+    <li *ngIf="!updateLoginStatus()"><a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a></li>
+    <li *ngIf="updateLoginStatus()"><a [routerLink]="" (click)="logout()" routerLinkActive="active" ariaCurrentWhenActive="page">Logout</a></li>
+    <li *ngIf="!updateLoginStatus()"><a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a></li>
+    <li *ngIf="updateLoginStatus()"><a routerLink="/piggybank/create" routerLinkActive="active" ariaCurrentWhenActive="page">Create Piggybank</a></li>
+    <li *ngIf="updateLoginStatus()"><a routerLink="/piggybank/overview" routerLinkActive="active" ariaCurrentWhenActive="page">Overview Piggybank</a></li>
   </ul>
 </nav>
 

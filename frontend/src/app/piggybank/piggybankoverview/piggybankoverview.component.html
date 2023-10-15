@@ -1,10 +1,21 @@
 <div>
-    <h2>Piggybank Overview</h2>
+  <h2>Piggybank Overview</h2>
+  <ng-container *ngIf="piggybanks.length == 0 && serverError?.length == 0; else elseBlock">
+    It looks like you don't have any Piggybanks.
+    <a routerLink="/piggybank/create" routerLinkActive="active">Click here to create a piggybank.</a>
+  </ng-container>
+
+  <ng-template #elseBlock>
     <ul>
-        <li *ngFor="let piggybank of piggybanks">
-            <h3>{{ piggybank.name }}</h3>
-            <p>Balance: {{ piggybank.balance }}</p>
-            <!-- Add other details you want to display -->
-        </li>
+      <li *ngFor="let piggybank of piggybanks">
+        <h3>{{ piggybank.name }}</h3>
+        <p>Balance: {{ piggybank.balance }}</p>
+        <!-- Add other details you want to display -->
+      </li>
     </ul>
+  </ng-template>
+
+  <div *ngIf="serverError" class="text-danger">
+    {{ serverError }}
+  </div>
 </div>
