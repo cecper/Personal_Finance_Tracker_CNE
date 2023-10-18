@@ -50,7 +50,11 @@ export class PiggybankcreateComponent {
           this.router.navigate(['/piggybank/overview']);
         },
         (error: any) => {
-          this.serverError = 'Failed to create piggybank. Please try again later.';
+          if (error.status === 400) {
+            this.serverError = 'Piggybank already exists';
+          } else {
+            this.serverError = 'Failed to create piggybank. Please try again later.';
+          }
         }
       );
     }

@@ -56,7 +56,10 @@ export class UserRepository {
         }
         const user = new User(resources[0]["email"],resources[0]["username"],resources[0]["password"]);
 
-        if (user && bcrypt.compare(password, resources[0]["password"])) {
+
+
+
+        if ( await compare(password, resources[0]["password"])) {
             return this.generateToken(user)
         }
         return null;
@@ -98,6 +101,7 @@ export class UserRepository {
         }
         const {resources} = await this.container.items.query(querySpec).fetchAll();
             if(resources[0]){
+
 
 
             throw new Error("Username or email already exists");

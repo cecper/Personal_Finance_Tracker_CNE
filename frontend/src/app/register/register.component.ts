@@ -48,6 +48,7 @@ export class RegisterComponent {
               this.serverError = 'Failed to login. Please try again later.';
             }
           );
+
         },
         (registrationError) => {
           if (registrationError.status === 400) {

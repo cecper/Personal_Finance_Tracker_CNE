@@ -39,10 +39,40 @@ export class PiggybankRepository {
 
     //create 
     async createPiggyBank(piggyBank: Piggybank, username: string) {
-        const userId:string = await userServices.getUserId(username);
+        const userId: string = await userServices.getUserId(username);
         piggyBank.setUserId(userId);
+
+        // check if piggy bank for that user already exists
+        const querySpec = {
+            query: "SELECT * FROM piggybank p WHERE p.userId = @userId AND p.name = @name",
+            parameters: [
+                {
+                    name: "@userId",
+                    value: userId,
+                },
+                {
+                    name: "@name",
+                    value: piggyBank.getName,
+                },
+            ],
+        };
+
+        // Make sure to fetch the piggy bank from the database before checking for it
+        // Since the piggy bank may not exist yet, fetch will return a promise
+        const { resources } = await this.container.items.query(querySpec).fetchAll();
+        if (resources[0]) {
+            // print resources
+            console.log(resources[0]);
+            console.log("Piggybank already exists");
+            throw new Error("Piggybank already exists");
+        }
+
+
+
+        // Only create the piggy bank if it does not already exist
         const { resource } = await this.container.items.create(piggyBank);
         return resource;
+
     }
 
 
