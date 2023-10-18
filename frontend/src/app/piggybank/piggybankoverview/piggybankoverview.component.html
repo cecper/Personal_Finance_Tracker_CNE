@@ -5,17 +5,24 @@
     <a routerLink="/piggybank/create" routerLinkActive="active">Click here to create a piggybank.</a>
   </ng-container>
 
-  <ng-template #elseBlock>
-    <ul>
-      <li *ngFor="let piggybank of piggybanks">
-        <h3>{{ piggybank.name }}</h3>
-        <p>Balance: {{ piggybank.balance }}</p>
-        <!-- Add other details you want to display -->
-      </li>
-    </ul>
-  </ng-template>
+    <ng-template #elseBlock>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+        <div *ngFor="let piggybank of piggybanks" class="col">
+          <div class="card bg-dark text-white">
+            <div class="card-body">
+              <h3 class="card-title">{{ piggybank.name }}</h3>
+              <p class="card-text">Balance: {{ piggybank.balance | currency:'EUR':'symbol-narrow'}}</p>
+              <a class="btn btn-warning me-3" href="#">Details</a>
+              <a class="btn btn-primary" href="#">Add Transaction</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
-  <div *ngIf="serverError" class="text-danger">
-    {{ serverError }}
+    <div *ngIf="serverError" class="text-danger mt-3">
+      {{ serverError }}
+    </div>
   </div>
+
 </div>
