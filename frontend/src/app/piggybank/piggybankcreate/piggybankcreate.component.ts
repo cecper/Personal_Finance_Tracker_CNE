@@ -19,7 +19,7 @@ export class PiggybankcreateComponent {
 
   public registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    balance: ['', [Validators.required, Validators.pattern("^[0-9]*$") ]],
+    balance: ['', [Validators.required, Validators.pattern("^[-]?[0-9]*$") ]],
   });
 
   constructor(

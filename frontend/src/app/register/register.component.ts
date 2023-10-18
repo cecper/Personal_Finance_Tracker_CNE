@@ -3,6 +3,7 @@ import { RegisterServiceService } from '../../service/register/register-service.
 import { FormBuilder, Validators } from '@angular/forms';
 import {RegistrationData} from "../../types/types";
 import {Router} from "@angular/router";
+import {LoginService} from "../../service/login/login.service";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class RegisterComponent {
 
 
 
-  constructor(private service: RegisterServiceService, private fb: FormBuilder,private router: Router) {}
+  constructor(private service: RegisterServiceService, private fb: FormBuilder,private router: Router, private authservice: LoginService) {}
 
   register() {
     this.serverError = null;
@@ -38,16 +39,30 @@ export class RegisterComponent {
 
       this.service.registerUser(formData).subscribe(
         (response) => {
-          this.router.navigateByUrl('/home');
+          // Login user with the auth service
+          this.authservice.login(formData).subscribe(
+            () => {
+              this.router.navigateByUrl('/home');
+            },
+            (loginError) => {
+              this.serverError = 'Failed to login. Please try again later.';
+            }
+          );
         },
-        (error) => {
-          this.serverError = "Failed to register your account. Please try again later.";
+        (registrationError) => {
+          if (registrationError.status === 400) {
+            this.serverError = 'Username or Email already exists';
+          } else {
+            this.serverError = 'Failed to register. Please try again later.';
+          }
         }
       );
-    } else {
-      // Form is invalid, handle accordingly
     }
   }
-
-
 }
+
+
+
+
+
+

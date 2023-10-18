@@ -23,7 +23,7 @@ var app = express();
 
 app.use(cors<Request>());
 app.use(
-    expressjwt({secret: jwtSecret, algorithms: ['HS256']}).unless({path: ['/user/login',  '/user/create', "/"]
+    expressjwt({secret: jwtSecret, algorithms: ['HS256']}).unless({path: ['/user/login',  '/user/create', "/" , "/user/remove-test"]
         }
     )
 );

@@ -77,6 +77,34 @@ export class UserRepository {
 
     //create a user and hash the password
     async createUser(user: User) {
+        //turn email to lowercase
+        user.setEmail = user.getEmail.toLowerCase();
+        //check if the username or email already exists
+
+
+
+        const querySpec = {
+            query: "SELECT * FROM users u WHERE u.username = @username OR u.email = @email",
+            parameters: [
+                {
+                    name: "@username",
+                    value: user.getUsername
+                },
+                {
+                    name: "@email",
+                    value: user.getEmail
+                }
+            ]
+        }
+        const {resources} = await this.container.items.query(querySpec).fetchAll();
+            if(resources[0]){
+
+
+            throw new Error("Username or email already exists");
+    }
+
+
+
         const hashedPassword = await hash(user.getPassword);
         user.setPassword = hashedPassword;
         const {resource} = await this.container.items.create(user);
@@ -85,6 +113,9 @@ export class UserRepository {
 
     //get a user by email
     async getUserByEmail(email: string): Promise<User> {
+        //turn email to lowercase
+        email = email.toLowerCase();
+
         const {resource} = await this.container.item(email, email).read();
         return resource as User;
     }
@@ -109,8 +140,9 @@ export class UserRepository {
 
 
 
-
 }
+
+
 
 
 
