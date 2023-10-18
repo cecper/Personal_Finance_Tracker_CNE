@@ -2,9 +2,7 @@
 
 To-Do List:
 
-- Check on user register if username or email is already taken
-- Redirect after form submit
-- Validation if piggybank name is already taken with same userid
+- Delete piggybank
 - On piggybank overview detail page + add transaction button
 # Transactions:
 - Add a way to delete a transaction

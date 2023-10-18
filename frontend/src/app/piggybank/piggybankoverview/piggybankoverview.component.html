@@ -8,9 +8,10 @@
   <ng-template #elseBlock>
     <ul>
       <li *ngFor="let piggybank of piggybanks">
-        <h3>{{ piggybank.name }}</h3>
+        <h3>{{ piggybank.name }} <button routerLink="{{'/transaction/create/' + piggybank.id}}">Add transaction</button></h3>
+
         <p>Balance: {{ piggybank.balance }}</p>
-        <!-- Add other details you want to display -->
+
       </li>
     </ul>
   </ng-template>

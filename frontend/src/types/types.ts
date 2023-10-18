@@ -14,3 +14,12 @@ export interface CreatePiggybankData {
   balance: number;
   username: string;
 }
+
+export interface CreateTransactionData {
+  name: string;
+  description: string;
+  amount: number;
+  sender: string;
+  receiver: string;
+  piggybankId: number;
+}

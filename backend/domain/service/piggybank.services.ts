@@ -17,15 +17,12 @@ export class PiggybankServices {
         const repo = await this.getRepo();
 
         try {
-            const result = await repo.createPiggyBank(piggyBank,username);
+            return await repo.createPiggyBank(piggyBank,username);
         }
         catch (error) {
             throw error;
         }
 
-
-
-        return repo.createPiggyBank(piggyBank,username);
     }
 
     async getPiggyBankById(piggyBankId: number) {

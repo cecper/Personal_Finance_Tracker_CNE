@@ -10,6 +10,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { PiggybankoverviewComponent } from './piggybank/piggybankoverview/piggybankoverview.component';
 import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankcreate.component';
+import { TransactioncreateComponent } from './transaction/transactioncreate/transactioncreate.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankc
     RegisterComponent,
     HomeComponent,
     PiggybankoverviewComponent,
-    PiggybankcreateComponent
+    PiggybankcreateComponent,
+    TransactioncreateComponent
   ],
   imports: [
     BrowserModule,

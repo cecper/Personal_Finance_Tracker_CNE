@@ -57,20 +57,14 @@ export class PiggybankRepository {
             ],
         };
 
-        // Make sure to fetch the piggy bank from the database before checking for it
-        // Since the piggy bank may not exist yet, fetch will return a promise
         const { resources } = await this.container.items.query(querySpec).fetchAll();
-        if (resources[0]) {
-            // print resources
-            console.log(resources[0]);
-            console.log("Piggybank already exists");
+
+        if (resources.length > 0) {
             throw new Error("Piggybank already exists");
         }
 
-
-
-        // Only create the piggy bank if it does not already exist
         const { resource } = await this.container.items.create(piggyBank);
+
         return resource;
 
     }
@@ -85,6 +79,14 @@ export class PiggybankRepository {
             console.error("Error getting piggy bank:", error);
             return null;
         }
+    }
+
+    async adjustBalance(piggyBankId: number, amount: number) {
+        const piggyBank = await this.getPiggyBankById(piggyBankId);
+        const newBalance = piggyBank.balance + amount;
+        piggyBank.balance = newBalance;
+        const { resource } = await this.container.item(piggyBankId.toString()).replace(piggyBank);
+        return resource;
     }
 
 

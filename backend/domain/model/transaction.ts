@@ -1,8 +1,4 @@
-import {Piggybank} from "./piggybank";
-
 export class Transaction {
-
-    private readonly transactionId: number
     private piggyBankId: number
     private name: string
     private description: string
@@ -10,18 +6,13 @@ export class Transaction {
     private sender:string
     private receiver:string
 
-    constructor(transactionId: number, piggyBankId: number, name: string, description: string, amount: number, sender: string, receiver: string) {
-        this.transactionId = transactionId;
+    constructor( piggyBankId: number, name: string, description: string, amount: number, sender: string, receiver: string) {
         this.piggyBankId = piggyBankId;
         this.name = name;
         this.description = description;
         this.amount = amount;
         this.sender = sender;
         this.receiver = receiver;
-    }
-
-    get getTransactionId(): number {
-        return this.transactionId;
     }
 
     get getPiggyBankId(): number {
