@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2>Create Piggybank</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="transactionForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Piggybank Name:</label>
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="name" formControlName="name" required>
+              <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('required')"
+                   class="text-danger">
+                Piggybank Name is required.
+              </div>
+              <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('minlength')"
+                   class="text-danger">
+                Piggybank Name has to be at least 3 characters.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="balance" class="form-label">Initial Balance:</label>
+              <input (keyup.enter)="createTransaction()" type="number" class="form-control" id="balance" formControlName="balance" required>
+              <div *ngIf="(submitted || transactionForm.get('balance')?.touched) && transactionForm.get('balance')?.hasError('required')"
+                   class="text-danger">
+                Initial Balance is required.
+              </div>
+              <div *ngIf="(submitted || transactionForm.get('balance')?.touched) && transactionForm.get('balance')?.hasError('pattern')"
+                   class="text-danger">
+                Balance needs to be a number.
+              </div>
+            </div>
+
+            <div *ngIf="serverError" class="text-danger">
+              {{ serverError }}
+            </div>
+
+            <button type="button" class="btn btn-primary" (click)="createTransaction()">Create Piggybank</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
