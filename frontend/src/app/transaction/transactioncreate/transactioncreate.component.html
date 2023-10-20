@@ -8,30 +8,63 @@
         <div class="card-body">
           <form [formGroup]="transactionForm">
             <div class="mb-3">
-              <label for="name" class="form-label">Piggybank Name:</label>
+              <label for="name" class="form-label">Transaction Name:</label>
               <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="name" formControlName="name" required>
               <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('required')"
                    class="text-danger">
-                Piggybank Name is required.
+                Transaction Name is required.
               </div>
               <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('minlength')"
                    class="text-danger">
-                Piggybank Name has to be at least 3 characters.
+                Transaction Name has to be at least 3 characters.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="balance" class="form-label">Initial Balance:</label>
-              <input (keyup.enter)="createTransaction()" type="number" class="form-control" id="balance" formControlName="balance" required>
-              <div *ngIf="(submitted || transactionForm.get('balance')?.touched) && transactionForm.get('balance')?.hasError('required')"
+              <label for="description" class="form-label">Description:</label>
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="description" formControlName="description" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount:</label>
+              <input (keyup.enter)="createTransaction()" type="number" class="form-control" id="amount" formControlName="amount" required>
+              <div *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('required')"
                    class="text-danger">
-                Initial Balance is required.
+                Amount is required.
               </div>
-              <div *ngIf="(submitted || transactionForm.get('balance')?.touched) && transactionForm.get('balance')?.hasError('pattern')"
+              <div *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('pattern')"
                    class="text-danger">
-                Balance needs to be a number.
+                Amount needs to be a number.
               </div>
             </div>
+
+            <div class="mb-3">
+              <label for="sender" class="form-label">Sender Name:</label>
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="sender" formControlName="sender" required>
+              <div *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('required')"
+                   class="text-danger">
+                Sender Name is required.
+              </div>
+              <div *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('minlength')"
+                   class="text-danger">
+                Sender Name has to be at least 2 characters.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="receiver" class="form-label">Receiver Name:</label>
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="receiver" formControlName="receiver" required>
+              <div *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('required')"
+                   class="text-danger">
+                Receiver Name is required.
+              </div>
+              <div *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('minlength')"
+                   class="text-danger">
+                Receiver Name has to be at least 2 characters.
+              </div>
+            </div>
+
+
 
             <div *ngIf="serverError" class="text-danger">
               {{ serverError }}

@@ -1,26 +1,55 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {RegisterServiceService} from "../../../service/register/register-service.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {TransactionService} from "../../../service/transaction/transaction.service";
+import {CreateTransactionData} from "../../../types/types";
 
 @Component({
   selector: 'app-transactioncreate',
   templateUrl: './transactioncreate.component.html',
   styleUrls: ['./transactioncreate.component.css']
 })
-export class TransactioncreateComponent {
+export class TransactioncreateComponent implements OnInit {
   serverError: string | null = null;
+  piggybankId: string ='';
   submitted = false;
   public transactionForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', ],
+    amount: ['', [Validators.required, Validators.pattern("^-?[0-9]*$")]],
+    sender: ['', [Validators.required, Validators.minLength(2)]],
+    receiver: ['', [Validators.required, Validators.minLength(2)]],
   });
 
-  constructor(private service: RegisterServiceService, private fb: FormBuilder, private router: Router) {
+  constructor(private service: TransactionService, private fb: FormBuilder, private router: Router,private route: ActivatedRoute) {
+
+  }
+
+  ngOnInit() {
+    this.piggybankId = String(this.route.snapshot.paramMap.get('piggybankId'));
   }
 
   createTransaction() {
+    this.submitted = true;
+    if (this.transactionForm.valid) {
+      const transactionData: CreateTransactionData = { // Create the data object
+        piggyBankId: this.piggybankId,
+        name: this.transactionForm.get('name')?.value as string,
+        description: this.transactionForm.get('description')?.value as string,
+        amount: this.transactionForm.get('amount')?.getRawValue(),
+        sender: this.transactionForm.get('sender')?.value as string,
+        receiver: this.transactionForm.get('receiver')?.value as string,
+      };
+      console.log(transactionData);
 
+      this.service.createTransaction(transactionData).subscribe(
+        () => {
+          this.router.navigate(['/piggybank/overview']);
+        },
+        (error) => {
+          this.serverError = error;
+        }
+      );
+    }
   }
 }

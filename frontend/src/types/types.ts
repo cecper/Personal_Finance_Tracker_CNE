@@ -16,10 +16,10 @@ export interface CreatePiggybankData {
 }
 
 export interface CreateTransactionData {
+  piggyBankId: string;
   name: string;
   description: string;
   amount: number;
   sender: string;
   receiver: string;
-  piggybankId: number;
 }
