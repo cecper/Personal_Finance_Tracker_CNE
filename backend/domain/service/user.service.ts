@@ -12,7 +12,17 @@ export class UserServices {
     async createUser(user: User) {
         const repo = await this.getRepo();
 
-        return repo.createUser(user);
+
+        //catch error if user already exists
+        try {
+            const result = await repo.createUser(user);
+        } catch (error) {
+            throw error;
+        }
+
+
+
+        return user;
     }
 
     // user validate password
@@ -26,6 +36,12 @@ export class UserServices {
         const repo = await this.getRepo();
         return repo.getUserByEmail(email);
     }
+
+    async getUserId(username: string): Promise<string> {
+        const repo = await this.getRepo();
+        return repo.getUserId(username);
+    }
+
 
 
 }

@@ -13,22 +13,18 @@ router.get('/getall', async function (req: any, res: any, next: any) {
 
 //create transaction
 router.post('/create', async function (req: any, res: any, next: any) {
-    const transaction = new Transaction(req.body.transactionId, req.body.piggybankId, req.body.name, req.body.description, req.body.amount, req.body.sender, req.body.receiver);
-    const result = await transactionsServices.createTransaction(transaction);
 
-    res.send(result);
-});
-
-//create test transaction
-router.post('/create-test', async function (req: any, res: any, next: any) {
-    const transaction = new Transaction(1, 1, "test", "testdisc", 100, "testsender", "testreceiver");
-    const result = await transactionsServices.createTransaction(transaction);
-
-    res.send(result);
+    try {
+        const transaction = new Transaction(req.body.piggyBankId, req.body.name, req.body.description, req.body.amount, req.body.sender, req.body.receiver);
+        const result = await transactionsServices.createTransaction(transaction);
+        res.status(200).json(result);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
 
 });
 
-//create test transaction
 
 //get transaction by id
 router.get('/get/:transactionId', async function (req: any, res: any, next: any) {

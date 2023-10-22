@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as auth from '../../service/authorization';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +8,23 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  isLoggedIn = auth.isLoggedIn();
+
   constructor() { }
-  isLoggedIn(): boolean {
-    // Check if the 'username' key in localStorage is not empty
-    return !!localStorage.getItem('username');
-  }
+
 
   getUsername(): string | null {
     // Get the username from localStorage
     return localStorage.getItem('username');
   }
 
+  updateLoginStatus() {
+    this.isLoggedIn = auth.isLoggedIn();
+    return this.isLoggedIn;
+  }
+
   logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem('id_token');
     localStorage.removeItem('username');
   }
 }

@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card">
+      <div class="card bg-dark text-white">
         <div class="card-header">
           <h2>Register</h2>
         </div>
@@ -9,7 +9,7 @@
           <form [formGroup]="registerForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email:</label>
-              <input type="email" class="form-control" id="email" formControlName="email" required>
+              <input (keyup.enter)="register()" type="email" class="form-control" id="email" formControlName="email" required>
               <div *ngIf="(submitted || registerForm.get('email')?.touched) && registerForm.get('email')?.hasError('required')"
                    class="text-danger">
                 Email is required.
@@ -22,7 +22,7 @@
 
             <div class="mb-3">
               <label for="username" class="form-label">Username:</label>
-              <input type="text" class="form-control" id="username" formControlName="username" required>
+              <input (keyup.enter)="register()" type="text" class="form-control" id="username" formControlName="username" required>
               <div *ngIf="(submitted || registerForm.get('username')?.touched) && registerForm.get('username')?.hasError('required')"
                    class="text-danger">
                 Username is required.
@@ -36,7 +36,7 @@
 
             <div class="mb-3">
               <label for="password" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="password" formControlName="password" required>
+              <input (keyup.enter)="register()" type="password" class="form-control" id="password" formControlName="password" required>
               <div *ngIf="(submitted || registerForm.get('password')?.touched) && registerForm.get('password')?.hasError('required')"
                    class="text-danger">
                 Password is required.
@@ -46,9 +46,13 @@
                 Password has to be at least 6 characters.
 
             </div>
+
+              <div *ngIf="serverError" class="text-danger">
+                {{ serverError }}
+              </div>
             </div>
 
-            <button type="button" class="btn btn-primary" (click)="register()">Register</button>
+            <button type="button" class="btn btn-warning" (click)="register()">Register</button>
           </form>
         </div>
       </div>

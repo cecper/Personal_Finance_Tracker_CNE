@@ -1,11 +1,13 @@
 import { Container} from "@azure/cosmos";
 import {Connection} from "./connection";
 import {Transaction} from "../model/transaction";
-
+import {PiggybankRepository} from "./piggybank.repository";
+import {Piggybank} from "../model/piggybank";
 
 export class TransactionRepository {
     private static instance: TransactionRepository;
     private readonly container: Container;
+    private static piggybankRepository: PiggybankRepository;
 
     private constructor(container: Container) {
         this.container = container;
@@ -28,6 +30,10 @@ export class TransactionRepository {
 
     //create
     async createTransaction(transaction: Transaction) {
+        PiggybankRepository.getInstance().then((piggybankRepository) => {
+            piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount);
+        });
+        console.log(transaction.getPiggyBankId, transaction.getAmount)
         const {resource} = await this.container.items.create(transaction);
         return resource;
     }
