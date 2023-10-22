@@ -17,17 +17,28 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
 
     });*/
+    try{
+        const piggyBank = new Piggybank(req.body.name, req.body.balance, "");
+        const result = await piggybankServices.createPiggyBank(piggyBank, req.body.username);
 
-    const piggyBank = new Piggybank(req.body.name, req.body.balance, "");
-    const result = await piggybankServices.createPiggyBank(piggyBank, req.body.username);
-
-    context.res = {
-        body: result,
-        headers: {
-            'Content-Type': 'application/json'
+        context.res = {
+            body: result,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
     }
-
+        catch (error) {
+            context.res = {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json" 
+                },
+                body: {
+                    message: "user already exists"
+                }
+        }
+    }
 
 };
 

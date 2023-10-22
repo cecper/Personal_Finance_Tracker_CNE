@@ -3,8 +3,6 @@ import {userServices} from "../domain/service/user.service";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
-
-
     const token = await userServices.validatePassword(req.body.username,req.body.password);
     if(token) {
         context.res = {
@@ -16,14 +14,15 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
     else {
         context.res = {
-            body: {message: 'Authentication failed'},
+            status: 401,
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json" 
+            },
+            body: {
+                message: "Authentication failed"
             }
         }
     }
-
-
 };
 
 export default httpTrigger;

@@ -5,7 +5,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
 
     const result = await piggybankServices.getPiggyBankById(Number(req.params.piggyBankId));
-
+    
     if(result) {
         context.res = {
             body: result,

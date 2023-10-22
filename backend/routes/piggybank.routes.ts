@@ -4,9 +4,6 @@ import {Piggybank} from "../domain/model/piggybank";
 var express = require('express');
 var router = express.Router();
 
-
-
-
 router.post('/getall', async function (req: any, res: any, next: any) {
 
         try{
@@ -18,8 +15,6 @@ router.post('/getall', async function (req: any, res: any, next: any) {
         }
     }
 );
-
-
 
 //create piggybank
 router.post('/create', async function (req: any, res: any, next: any) {

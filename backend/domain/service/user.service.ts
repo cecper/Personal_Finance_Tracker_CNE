@@ -1,5 +1,5 @@
-import {User} from '../model/user'
-import {UserRepository} from '../data-access/user.repository'
+import { User } from '../model/user'
+import { UserRepository } from '../data-access/user.repository'
 
 
 export class UserServices {
@@ -26,9 +26,9 @@ export class UserServices {
     }
 
     // user validate password
-    async validatePassword(username:string,password:string): Promise<boolean> {
+    async validatePassword(username: string, password: string): Promise<boolean> {
         const repo = await this.getRepo();
-        return repo.validatePassword(username,password);
+        return repo.validatePassword(username, password);
     }
 
     //get a user by email
