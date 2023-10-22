@@ -20,6 +20,7 @@ export class PiggybankService {
 
   getAllPiggybanks(): Observable<any> {
     const headers = auth.getAuthorizationHeader();
-    return this.http.post(`${this.baseUrl}/getall`,{"username":auth.getUsername()}, { headers });
+    
+    return this.http.post(`https://functies.azurewebsites.net/api/getAllPiggybanksHttpTrigger?code=_mNZl9dsAzOlyLLq7Wld635b0h2FbD_EOwpz6KlcrM3UAzFuj_lKyw==`,{"username":auth.getUsername()}, { headers });
   }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'piggybank/overview',
     component: PiggybankoverviewComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'piggybank/create',

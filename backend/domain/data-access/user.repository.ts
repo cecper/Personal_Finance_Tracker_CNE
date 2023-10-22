@@ -1,10 +1,9 @@
 
 import {User} from '../model/user'
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 import {  Container } from "@azure/cosmos";
 import {Connection} from "./connection";
-import dotenv from "dotenv";
 
 const jwt =require('jsonwebtoken');
 
