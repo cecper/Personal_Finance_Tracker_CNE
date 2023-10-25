@@ -32,6 +32,11 @@ export class TransactionsServices {
         return await repo.getTransactionsByPiggyBankId(piggyBankId);
     }
 
+    async deleteTransactionById(transactionId: string) {
+        const repo = await this.getRepo();
+        return repo.deleteTransactionById(transactionId);
+    }
+
 
 }
 

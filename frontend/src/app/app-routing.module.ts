@@ -9,6 +9,8 @@ import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankc
 import { AuthGuard } from './auth.guard';
 import {TransactioncreateComponent} from "./transaction/transactioncreate/transactioncreate.component"; // Adjust the import path based on your actual project structure
 import { TransactionOverviewByPiggybankComponent } from './transaction/transaction-overview-by-piggybank/transaction-overview-by-piggybank.component';
+import { PiggybankDeleteConfirmComponent } from './piggybank/piggybank-delete-confirm/piggybank-delete-confirm.component';
+import { TransactionDeleteConfirmComponent } from './transaction/transaction-delete-confirm/transaction-delete-confirm.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +27,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path:'piggybank/delete/:piggybankId',
+    component: PiggybankDeleteConfirmComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path:'transaction/create/:piggybankId',
     component: TransactioncreateComponent,
     canActivate: [AuthGuard],
@@ -32,6 +39,11 @@ const routes: Routes = [
   {
     path:'transaction/all/:piggybankId',
     component: TransactionOverviewByPiggybankComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path:'transaction/delete/:transactionId',
+    component: TransactionDeleteConfirmComponent,
     canActivate: [AuthGuard],
   }
 ];

@@ -12,6 +12,8 @@ import { PiggybankoverviewComponent } from './piggybank/piggybankoverview/piggyb
 import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankcreate.component';
 import { TransactioncreateComponent } from './transaction/transactioncreate/transactioncreate.component';
 import { TransactionOverviewByPiggybankComponent } from './transaction/transaction-overview-by-piggybank/transaction-overview-by-piggybank.component';
+import { PiggybankDeleteConfirmComponent } from './piggybank/piggybank-delete-confirm/piggybank-delete-confirm.component';
+import { TransactionDeleteConfirmComponent } from './transaction/transaction-delete-confirm/transaction-delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TransactionOverviewByPiggybankComponent } from './transaction/transacti
     PiggybankoverviewComponent,
     PiggybankcreateComponent,
     TransactioncreateComponent,
-    TransactionOverviewByPiggybankComponent
+    TransactionOverviewByPiggybankComponent,
+    PiggybankDeleteConfirmComponent,
+    TransactionDeleteConfirmComponent
   ],
   imports: [
     BrowserModule,

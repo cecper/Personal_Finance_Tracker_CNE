@@ -27,6 +27,6 @@ export class PiggybankService {
   deletePiggybank(id: string): Observable<any> {
     const headers = auth.getAuthorizationHeader();
 
-    return this.http.post(`${this.baseUrl}/deletePiggybankHttpTrigger`,{"id":id}, { headers });
+    return this.http.post(`${this.baseUrl}/deletepiggybankbyidhttptrigger`,{"piggyBankId":id}, { headers });
   }
 }

@@ -63,5 +63,9 @@ export class TransactionRepository {
         }).fetchAll();
         return resources;
     }
-        
+
+    async deleteTransactionById(id: string) {
+        const {resource} = await this.container.item(id).delete();
+        return resource;
+    }
 }

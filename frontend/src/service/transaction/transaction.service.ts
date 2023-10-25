@@ -25,7 +25,7 @@ export class TransactionService {
 
   deleteTransaction(id: string): Observable<any> {
     const headers = auth.getAuthorizationHeader();
-
-    return this.http.post(`${this.baseUrl}/deleteTransactionHttpTrigger`,{"id":id}, { headers });
+    
+    return this.http.post(`${this.baseUrl}/deleteTransactionByIdHttpTrigger`,{"transactionId":id}, { headers });
   }
 }

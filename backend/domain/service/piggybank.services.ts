@@ -29,6 +29,11 @@ export class PiggybankServices {
         const repo = await this.getRepo();
         return repo.getPiggyBankById(piggyBankId);
     }
+
+    async deletePiggybank(piggyBankId:string){
+        const repo = await this.getRepo();
+        return repo.deletePiggybankById(piggyBankId);
+    }
 }
 
 export const piggybankServices = new PiggybankServices();
