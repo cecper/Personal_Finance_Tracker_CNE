@@ -1,13 +1,11 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { piggybankServices } from "../domain/service/piggybank.services";
+import { transactionsServices } from "../domain/service/transactions.services";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
-
     try{
-        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+        const result = await transactionsServices.getAllTransactions()
         context.res = {
-            body: piggyBanks,
+            body: result,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -20,7 +18,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 "Content-Type": "application/json"
             },
             body: {
-                message: "user has no piggybanks"
+                message: "no transactions found for this piggybank"
             }
         }
     }

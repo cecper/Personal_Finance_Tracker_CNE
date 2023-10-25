@@ -8,3 +8,4 @@ To-Do List:
 - Add a way to delete a transaction
 - Add a way to edit a transaction
 - Add a way to add a transaction
+- Protect transactions from other users.

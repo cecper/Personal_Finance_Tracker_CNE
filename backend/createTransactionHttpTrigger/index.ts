@@ -1,13 +1,15 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { piggybankServices } from "../domain/service/piggybank.services";
+import { Transaction } from "../domain/model/transaction";
+import { transactionsServices } from "../domain/service/transactions.services";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
 
-    try{
-        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+    try {
+        const transaction = new Transaction(req.body.piggyBankId, req.body.name, req.body.description, req.body.amount, req.body.sender, req.body.receiver);
+        const result = await transactionsServices.createTransaction(transaction);
         context.res = {
-            body: piggyBanks,
+            // status: 200, /* Defaults to 200 */
+            body: result,
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -20,7 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 "Content-Type": "application/json"
             },
             body: {
-                message: "user has no piggybanks"
+                message: "username or email already exists"
             }
         }
     }

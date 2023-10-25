@@ -48,4 +48,20 @@ export class TransactionRepository {
             return null;
         }
     }
+
+    async getTransactionsByPiggyBankId(piggyBankId: number) {
+        console.log(piggyBankId)
+        
+        const {resources} = await this.container.items.query({
+            query: "SELECT * FROM transaction t WHERE t.piggyBankId = @piggyBankId",
+            parameters: [
+                {
+                    name: "@piggyBankId",
+                    value: piggyBankId
+                }
+            ]
+        }).fetchAll();
+        return resources;
+    }
+        
 }

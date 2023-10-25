@@ -26,6 +26,12 @@ export class TransactionsServices {
         return repo.getTransactionById(transactionId);
     }
 
+    async getTransactionsByPiggyBankId(piggyBankId: number) {
+        const repo = await this.getRepo();
+
+        return await repo.getTransactionsByPiggyBankId(piggyBankId);
+    }
+
 
 }
 

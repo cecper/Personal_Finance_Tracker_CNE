@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { PiggybankoverviewComponent } from './piggybank/piggybankoverview/piggybankoverview.component';
 import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankcreate.component';
 import { TransactioncreateComponent } from './transaction/transactioncreate/transactioncreate.component';
+import { TransactionOverviewByPiggybankComponent } from './transaction/transaction-overview-by-piggybank/transaction-overview-by-piggybank.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TransactioncreateComponent } from './transaction/transactioncreate/tran
     HomeComponent,
     PiggybankoverviewComponent,
     PiggybankcreateComponent,
-    TransactioncreateComponent
+    TransactioncreateComponent,
+    TransactionOverviewByPiggybankComponent
   ],
   imports: [
     BrowserModule,
