@@ -8,18 +8,25 @@ import * as auth from "../authorization";
   providedIn: 'root'
 })
 export class PiggybankService {
-  private baseUrl = 'http://localhost:3000/piggybank';
+  private baseUrl = 'https://functies.azurewebsites.net/api';
 
   constructor(private http: HttpClient) {}
 
   createPiggybank(data: CreatePiggybankData): Observable<any> {
     const headers = auth.getAuthorizationHeader();
 
-    return this.http.post(`${this.baseUrl}/create`, data, { headers });
+    return this.http.post(`${this.baseUrl}/CreatePiggybankHttpTrigger`, data, { headers });
   }
 
   getAllPiggybanks(): Observable<any> {
     const headers = auth.getAuthorizationHeader();
-    return this.http.post(`${this.baseUrl}/getall`,{"username":auth.getUsername()}, { headers });
+
+    return this.http.post(`${this.baseUrl}/getAllPiggybanksHttpTrigger`,{"username":auth.getUsername()}, { headers });
+  }
+
+  deletePiggybank(id: string): Observable<any> {
+    const headers = auth.getAuthorizationHeader();
+
+    return this.http.post(`${this.baseUrl}/deletepiggybankbyidhttptrigger`,{"piggyBankId":id}, { headers });
   }
 }

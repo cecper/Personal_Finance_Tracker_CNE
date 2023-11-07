@@ -1,10 +1,9 @@
 
 import {User} from '../model/user'
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 import {  Container } from "@azure/cosmos";
 import {Connection} from "./connection";
-import dotenv from "dotenv";
 
 const jwt =require('jsonwebtoken');
 
@@ -84,8 +83,6 @@ export class UserRepository {
         user.setEmail = user.getEmail.toLowerCase();
         //check if the username or email already exists
 
-
-
         const querySpec = {
             query: "SELECT * FROM users u WHERE u.username = @username OR u.email = @email",
             parameters: [
@@ -101,13 +98,8 @@ export class UserRepository {
         }
         const {resources} = await this.container.items.query(querySpec).fetchAll();
             if(resources[0]){
-
-
-
             throw new Error("Username or email already exists");
-    }
-
-
+        }
 
         const hashedPassword = await hash(user.getPassword);
         user.setPassword = hashedPassword;
@@ -141,8 +133,6 @@ export class UserRepository {
         }
         return resources[0]["id"];
     }
-
-
 
 }
 

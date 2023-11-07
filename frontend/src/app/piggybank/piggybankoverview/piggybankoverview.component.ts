@@ -8,7 +8,7 @@ import { PiggybankService } from '../../../service/piggybank/piggybank.service';
 })
 export class PiggybankoverviewComponent implements OnInit {
     piggybanks: any[] = []; // Update the type according to your data structure
-  serverError: string | null = null;
+    serverError: string | null = null;
     constructor(private piggybankService: PiggybankService) {}
 
     ngOnInit(): void {
@@ -24,5 +24,9 @@ export class PiggybankoverviewComponent implements OnInit {
                 this.serverError = "Something went wrong. Please try again later.";
             }
         );
+    }
+    
+    deletePiggybank(){
+
     }
 }

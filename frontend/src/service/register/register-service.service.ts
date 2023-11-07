@@ -11,7 +11,7 @@ export class RegisterServiceService {
   constructor(private http : HttpClient) {}
 
   registerUser(data: RegistrationData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create`, data);
+    return this.http.post(`https://functies.azurewebsites.net/api/CreateAccountHttpTrigger`, data);
   }
 
   checkDupeUsername(username: string): Observable<any> {

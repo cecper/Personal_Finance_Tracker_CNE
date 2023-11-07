@@ -4,7 +4,8 @@ export class Connection {
     static createCosmosClient(): CosmosClient {
         const key = process.env.COSMOS_KEY;
         const endpoint = process.env.COSMOS_ENDPOINT;
-
+        console.log(key);
+        console.log(endpoint);
         if (!key || !endpoint) {
             throw new Error("Azure Cosmos DB Key or Endpoint not provided. Exiting...");
         }

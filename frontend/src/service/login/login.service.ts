@@ -16,7 +16,7 @@ export class LoginService {
   }
 
   login(data: LoginData) : Observable<any>{
-    return this.http.post(`${this.baseUrl}/login`, data).pipe(
+    return this.http.post(`https://functies.azurewebsites.net/api/LoginHttpTrigger`, data).pipe(
       tap(res => this.setSession(res,data.username))
     );
   }

@@ -89,5 +89,10 @@ export class PiggybankRepository {
         return resource;
     }
 
+    async deletePiggybankById(piggyBankId: string) {
+        const {resource} =await this.container.item(piggyBankId).delete();
+        return resource;
+    }
+
 
 }

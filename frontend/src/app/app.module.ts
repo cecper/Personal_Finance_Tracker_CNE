@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { PiggybankoverviewComponent } from './piggybank/piggybankoverview/piggybankoverview.component';
 import { PiggybankcreateComponent } from './piggybank/piggybankcreate/piggybankcreate.component';
 import { TransactioncreateComponent } from './transaction/transactioncreate/transactioncreate.component';
+import { TransactionOverviewByPiggybankComponent } from './transaction/transaction-overview-by-piggybank/transaction-overview-by-piggybank.component';
+import { PiggybankDeleteConfirmComponent } from './piggybank/piggybank-delete-confirm/piggybank-delete-confirm.component';
+import { TransactionDeleteConfirmComponent } from './transaction/transaction-delete-confirm/transaction-delete-confirm.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { TransactioncreateComponent } from './transaction/transactioncreate/tran
     HomeComponent,
     PiggybankoverviewComponent,
     PiggybankcreateComponent,
-    TransactioncreateComponent
+    TransactioncreateComponent,
+    TransactionOverviewByPiggybankComponent,
+    PiggybankDeleteConfirmComponent,
+    TransactionDeleteConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,8 @@ import { TransactioncreateComponent } from './transaction/transactioncreate/tran
     NgbModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

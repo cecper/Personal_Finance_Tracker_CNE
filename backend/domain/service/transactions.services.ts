@@ -26,6 +26,17 @@ export class TransactionsServices {
         return repo.getTransactionById(transactionId);
     }
 
+    async getTransactionsByPiggyBankId(piggyBankId: number) {
+        const repo = await this.getRepo();
+
+        return await repo.getTransactionsByPiggyBankId(piggyBankId);
+    }
+
+    async deleteTransactionById(transactionId: string) {
+        const repo = await this.getRepo();
+        return repo.deleteTransactionById(transactionId);
+    }
+
 
 }
 
