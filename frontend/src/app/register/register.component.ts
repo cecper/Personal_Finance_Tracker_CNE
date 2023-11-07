@@ -42,7 +42,7 @@ export class RegisterComponent {
           // Login user with the auth service
           this.authservice.login(formData).subscribe(
             () => {
-              this.router.navigateByUrl('/home');
+              this.router.navigateByUrl('/');
             },
             (loginError) => {
               this.serverError = 'Failed to login. Please try again later.';

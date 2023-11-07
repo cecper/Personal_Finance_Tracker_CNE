@@ -39,7 +39,7 @@ export class LoginComponent {
       this.authService.login(loginData)
         .subscribe(
           () => {
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/');
           },
           (error: any) => {
             if (error.status === 401) {

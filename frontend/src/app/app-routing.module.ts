@@ -15,7 +15,7 @@ import { TransactionDeleteConfirmComponent } from './transaction/transaction-del
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'piggybank/overview',
     component: PiggybankoverviewComponent,
