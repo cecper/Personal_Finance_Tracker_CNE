@@ -1,0 +1,17 @@
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "frontend",
+        "target": "build",
+        "configuration": "production",
+        "path": "dist/frontend"
+      },
+      "azureHosting": {
+        "subscription": "4414b174-4033-4d3c-ab72-9ba75c070687",
+        "resourceGroupName": "Cloud-Native-project",
+        "account": "staticstorageaccountcne"
+      }
+    }
+  ]
+}

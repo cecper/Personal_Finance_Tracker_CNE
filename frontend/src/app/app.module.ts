@@ -14,6 +14,7 @@ import { TransactioncreateComponent } from './transaction/transactioncreate/tran
 import { TransactionOverviewByPiggybankComponent } from './transaction/transaction-overview-by-piggybank/transaction-overview-by-piggybank.component';
 import { PiggybankDeleteConfirmComponent } from './piggybank/piggybank-delete-confirm/piggybank-delete-confirm.component';
 import { TransactionDeleteConfirmComponent } from './transaction/transaction-delete-confirm/transaction-delete-confirm.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TransactionDeleteConfirmComponent } from './transaction/transaction-del
     NgbModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
