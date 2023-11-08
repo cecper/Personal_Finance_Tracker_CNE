@@ -3,63 +3,76 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <h2>Create Piggybank</h2>
+          <h2>Create Transaction</h2>
         </div>
         <div class="card-body">
           <form [formGroup]="transactionForm">
             <div class="mb-3">
               <label for="name" class="form-label">Transaction Name:</label>
-              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="name" formControlName="name" required>
-              <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('required')"
-                   class="text-danger">
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="name"
+                formControlName="name" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('required')"
+                class="text-danger">
                 Transaction Name is required.
               </div>
-              <div *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('minlength')"
-                   class="text-danger">
+              <div
+                *ngIf="(submitted || transactionForm.get('name')?.touched) && transactionForm.get('name')?.hasError('minlength')"
+                class="text-danger">
                 Transaction Name has to be at least 3 characters.
               </div>
             </div>
 
             <div class="mb-3">
               <label for="description" class="form-label">Description:</label>
-              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="description" formControlName="description" required>
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="description"
+                formControlName="description" required>
             </div>
 
             <div class="mb-3">
               <label for="amount" class="form-label">Amount:</label>
-              <input (keyup.enter)="createTransaction()" type="number" class="form-control" id="amount" formControlName="amount" required>
-              <div *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('required')"
-                   class="text-danger">
+              <input (keyup.enter)="createTransaction()" type="number" class="form-control" id="amount"
+                formControlName="amount" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('required')"
+                class="text-danger">
                 Amount is required.
               </div>
-              <div *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('pattern')"
-                   class="text-danger">
+              <div
+                *ngIf="(submitted || transactionForm.get('amount')?.touched) && transactionForm.get('amount')?.hasError('pattern')"
+                class="text-danger">
                 Amount needs to be a number.
               </div>
             </div>
 
             <div class="mb-3">
               <label for="sender" class="form-label">Sender Name:</label>
-              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="sender" formControlName="sender" required>
-              <div *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('required')"
-                   class="text-danger">
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="sender"
+                formControlName="sender" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('required')"
+                class="text-danger">
                 Sender Name is required.
               </div>
-              <div *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('minlength')"
-                   class="text-danger">
+              <div
+                *ngIf="(submitted || transactionForm.get('sender')?.touched) && transactionForm.get('sender')?.hasError('minlength')"
+                class="text-danger">
                 Sender Name has to be at least 2 characters.
               </div>
             </div>
 
             <div class="mb-3">
               <label for="receiver" class="form-label">Receiver Name:</label>
-              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="receiver" formControlName="receiver" required>
-              <div *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('required')"
-                   class="text-danger">
+              <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="receiver"
+                formControlName="receiver" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('required')"
+                class="text-danger">
                 Receiver Name is required.
               </div>
-              <div *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('minlength')"
-                   class="text-danger">
+              <div
+                *ngIf="(submitted || transactionForm.get('receiver')?.touched) && transactionForm.get('receiver')?.hasError('minlength')"
+                class="text-danger">
                 Receiver Name has to be at least 2 characters.
               </div>
             </div>
@@ -70,7 +83,7 @@
               {{ serverError }}
             </div>
 
-            <button type="button" class="btn btn-primary" (click)="createTransaction()">Create Piggybank</button>
+            <button type="button" class="btn btn-primary" (click)="createTransaction()">Create Transaction</button>
           </form>
         </div>
       </div>
