@@ -34,7 +34,7 @@ export class TransactionRepository {
             piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount);
         });
         const {resource} = await this.container.items.create({
-            piggybankId: transaction.getPiggyBankId,
+            piggyBankId: transaction.getPiggyBankId,
             name: transaction.getName,
             description: transaction.getDescription,
             amount: transaction.getAmount,
