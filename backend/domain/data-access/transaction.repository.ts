@@ -3,7 +3,7 @@ import {Connection} from "./connection";
 import {Transaction} from "../model/transaction";
 import {PiggybankRepository} from "./piggybank.repository";
 import {Piggybank} from "../model/piggybank";
-
+import { FeedOptions } from '@azure/cosmos';
 export class TransactionRepository {
     private static instance: TransactionRepository;
     private readonly container: Container;
@@ -57,18 +57,28 @@ export class TransactionRepository {
         }
     }
 
-    async getTransactionsByPiggyBankId(piggyBankId: number) {        
-        const {resources} = await this.container.items.query({
-            query: "SELECT * FROM transaction t WHERE t.piggyBankId = @piggyBankId",
-            parameters: [
-                {
-                    name: "@piggyBankId",
-                    value: piggyBankId
-                }
-            ]
-        }).fetchAll();
-        return resources;
-    }
+    
+
+async getTransactionsByPiggyBankId(piggyBankId: number) {
+    const querySpec = {
+        query: "SELECT * FROM c WHERE c.piggyBankId = @piggyBankId",
+        parameters: [
+            {
+                name: "@piggyBankId",
+                value: piggyBankId
+            }
+        ]
+    };
+
+    const options: FeedOptions = {
+        partitionKey: piggyBankId.toString().substring(0, 1) // Set partition key
+    };
+
+    const { resources } = await this.container.items.query(querySpec, options).fetchAll();
+    return resources;
+}
+
+    
 
     async deleteTransactionById(id: string) {
         const {resource} = await this.container.item(id).delete();
