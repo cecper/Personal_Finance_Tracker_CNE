@@ -16,7 +16,7 @@ export class TransactionRepository {
     static async getInstance(): Promise<TransactionRepository> {
         if (!this.instance) {
             const cosmosClient = Connection.createCosmosClient();
-            const container = await Connection.initializeContainer(cosmosClient, "transaction", ["/id"]);
+            const container = await Connection.initializeContainer(cosmosClient, "transaction", ["/partition"]);
 
             this.instance = new TransactionRepository(container);
         }
@@ -34,20 +34,26 @@ export class TransactionRepository {
             piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount);
         });
         const {resource} = await this.container.items.create({
+            piggybankId: transaction.getPiggyBankId,
             name: transaction.getName,
             description: transaction.getDescription,
             amount: transaction.getAmount,
             sender: transaction.getSender,
             receiver: transaction.getReceiver,
-            partition: transaction.getName.substring(0, 1)
         });
 
-        return resource;
+        const partitionKey = resource.id.substring(0, 1);
+        const {resource: updatedResource} = await this.container.item(resource.id, partitionKey).replace({
+            ...resource,
+            partition: partitionKey,
+        });
+
+        return updatedResource;
     }
 
-    async getTransactionById(transactionId: number) {
+    async getTransactionById(transactionId: string) {
         try {
-            const document = await this.container.item(transactionId.toString()).read();
+            const document = await this.container.item(transactionId).read();
             return document.resource;
         } catch (error) {
             // Handle the error, e.g., return null for not found
@@ -56,9 +62,7 @@ export class TransactionRepository {
         }
     }
 
-    async getTransactionsByPiggyBankId(piggyBankId: number) {
-        console.log(piggyBankId)
-        
+    async getTransactionsByPiggyBankId(piggyBankId: number) {        
         const {resources} = await this.container.items.query({
             query: "SELECT * FROM transaction t WHERE t.piggyBankId = @piggyBankId",
             parameters: [
