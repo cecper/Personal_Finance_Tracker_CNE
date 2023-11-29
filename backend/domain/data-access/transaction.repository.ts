@@ -31,9 +31,9 @@ export class TransactionRepository {
     //create
     async createTransaction(transaction: Transaction) {
         PiggybankRepository.getInstance().then((piggybankRepository) => {
-            piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount*10);
+            piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount);
         });
-
+        
         const {resource} = await this.container.items.create(transaction);
         return resource;
     }
