@@ -2,8 +2,8 @@ import { Container} from "@azure/cosmos";
 import {Connection} from "./connection";
 import {Transaction} from "../model/transaction";
 import {PiggybankRepository} from "./piggybank.repository";
-import {Piggybank} from "../model/piggybank";
 import { FeedOptions } from '@azure/cosmos';
+
 export class TransactionRepository {
     private static instance: TransactionRepository;
     private readonly container: Container;
@@ -57,8 +57,6 @@ export class TransactionRepository {
         }
     }
 
-    
-
 async getTransactionsByPiggyBankId(piggyBankId: number) {
     const querySpec = {
         query: "SELECT * FROM c WHERE c.piggyBankId = @piggyBankId",
@@ -79,7 +77,6 @@ async getTransactionsByPiggyBankId(piggyBankId: number) {
 }
 
     
-
     async deleteTransactionById(id: string) {
         const {resource} = await this.container.item(id).delete();
         return resource;

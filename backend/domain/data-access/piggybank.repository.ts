@@ -2,6 +2,8 @@ import {Piggybank} from "../model/piggybank";
 import { Container} from "@azure/cosmos";
 import {Connection} from "./connection";
 import {userServices} from "../service/user.service";
+import { FeedOptions } from '@azure/cosmos';
+
 export class PiggybankRepository {
     private static instance: PiggybankRepository;
     private readonly container: Container;
@@ -12,7 +14,7 @@ export class PiggybankRepository {
     static async getInstance(): Promise<PiggybankRepository> {
         if (!this.instance) {
             const cosmosClient = Connection.createCosmosClient();
-            const container = await Connection.initializeContainer(cosmosClient,"piggy-bank",["/piggybankid"]);
+            const container = await Connection.initializeContainer(cosmosClient,"piggy-bank",["/partition"]);
 
             this.instance = new PiggybankRepository(container);
         }
@@ -31,9 +33,12 @@ export class PiggybankRepository {
                 }
             ]
         };
-        const { resources } = await this.container.items
-            .query(querySpec)
-            .fetchAll();
+        const options: FeedOptions = {
+            partitionKey: userid.toString().substring(0, 1) // Set partition key
+        };
+    
+        const { resources } = await this.container.items.query(querySpec, options).fetchAll();
+
         return resources;
     }
 
@@ -63,10 +68,14 @@ export class PiggybankRepository {
             throw new Error("Piggybank already exists");
         }
 
-        const { resource } = await this.container.items.create(piggyBank);
+        const { resource } = await this.container.items.create({
+            name: piggyBank.getName,
+            balance: piggyBank.getBalance,
+            userId: piggyBank.getUserId,
+            partition: piggyBank.getUserId.toString().substring(0, 1),
+        });
 
         return resource;
-
     }
 
 
