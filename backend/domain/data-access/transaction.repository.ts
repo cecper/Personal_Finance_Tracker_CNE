@@ -43,7 +43,7 @@ export class TransactionRepository {
         });
 
         const partitionKey = resource.id.substring(0, 1);
-        const {resource: updatedResource} = await this.container.item(resource.id, partitionKey).replace({
+        const {resource: updatedResource} = await this.container.item(resource.id).replace({
             ...resource,
             partition: partitionKey,
         });
