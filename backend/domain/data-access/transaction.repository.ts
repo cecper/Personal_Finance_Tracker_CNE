@@ -40,15 +40,10 @@ export class TransactionRepository {
             amount: transaction.getAmount,
             sender: transaction.getSender,
             receiver: transaction.getReceiver,
+            partition: transaction.getPiggyBankId.toString().substring(0, 1),
         });
 
-        const partitionKey = resource.id.substring(0, 1);
-        const {resource: updatedResource} = await this.container.item(resource.id).replace({
-            ...resource,
-            partition: partitionKey,
-        });
-
-        return updatedResource;
+        return resource;
     }
 
     async getTransactionById(transactionId: string) {
