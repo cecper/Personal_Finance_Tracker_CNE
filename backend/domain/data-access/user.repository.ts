@@ -29,7 +29,7 @@ export class UserRepository {
     static async getInstance(): Promise<UserRepository> {
         if (!this.instance) {
             const cosmosClient = Connection.createCosmosClient();
-            const container = await Connection.initializeContainer(cosmosClient, "users", ["/UserId"]);
+            const container = await Connection.initializeContainer(cosmosClient, "users", ["/partition"]);
 
             this.instance = new UserRepository(container);
         }
@@ -103,7 +103,14 @@ export class UserRepository {
 
         const hashedPassword = await hash(user.getPassword);
         user.setPassword = hashedPassword;
-        const {resource} = await this.container.items.create(user);
+        
+        const {resource} = await this.container.items.create({
+            email: user.getEmail,
+            username: user.getUsername,
+            password: user.getPassword,
+            partition: user.getEmail.substring(0, 1),
+        });
+
         return resource;
     }
 
