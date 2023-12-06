@@ -7,13 +7,12 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 
 
 # Set the local folder path
-local_folder="dist"
+local_folder="dist/frontend"
 
 currentdir=$(pwd)
 
 echo "begin"
 echo $(pwd)
-echo "begin ls"
 cd ./frontend
 ng build frontend
 
