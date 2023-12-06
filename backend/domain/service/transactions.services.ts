@@ -19,7 +19,7 @@ export class TransactionsServices {
         return repo.createTransaction(transaction);
     }
 
-    async getTransactionById(transactionId: number) {
+    async getTransactionById(transactionId: string) {
         const repo = await this.getRepo();
 
 
