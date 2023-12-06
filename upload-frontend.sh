@@ -14,12 +14,15 @@ cd ./frontend
 echo "Building frontend"
 ng build frontend
 cd ..
+cd ..
 echo "Build complete"
 echo $currentdir
 
 # Iterate over each file in the local folder and its subfolders
+
 find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
+
         # Extract the file name without the local folder structure
         file_name=$(basename "$file_path")
         
