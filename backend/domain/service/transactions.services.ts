@@ -19,22 +19,22 @@ export class TransactionsServices {
         return repo.createTransaction(transaction, userName);
     }
 
-    async getTransactionById(transactionId: string) {
+    async getTransactionById(transactionId: string, piggyBankId: string) {
         const repo = await this.getRepo();
 
 
-        return repo.getTransactionById(transactionId);
+        return repo.getTransactionById(transactionId, piggyBankId);
     }
 
-    async getTransactionsByPiggyBankId(piggyBankId: number) {
+    async getTransactionsByPiggyBankId(piggyBankId: string) {
         const repo = await this.getRepo();
 
         return await repo.getTransactionsByPiggyBankId(piggyBankId);
     }
 
-    async deleteTransactionById(transactionId: string) {
+    async deleteTransactionById(transactionId: string,piggyBankId: string,userName:string) {
         const repo = await this.getRepo();
-        return repo.deleteTransactionById(transactionId);
+        return repo.deleteTransactionById(transactionId,piggyBankId,userName);
     }
 
 

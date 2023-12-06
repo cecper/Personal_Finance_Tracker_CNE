@@ -1,8 +1,8 @@
-import { Container} from "@azure/cosmos";
+import {Container} from "@azure/cosmos";
 import {Connection} from "./connection";
 import {Transaction} from "../model/transaction";
 import {PiggybankRepository} from "./piggybank.repository";
-import { FeedOptions } from '@azure/cosmos';
+import {FeedOptions} from '@azure/cosmos';
 import {userServices} from "../service/user.service";
 
 export class TransactionRepository {
@@ -30,11 +30,11 @@ export class TransactionRepository {
     }
 
     //create
-    async createTransaction(transaction: Transaction,userName: string) {
+    async createTransaction(transaction: Transaction, userName: string) {
         PiggybankRepository.getInstance().then(async (piggybankRepository) => {
             let userid = await userServices.getUserId(userName);
 
-            await piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount,  userid);
+            await piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount, userid);
         });
         const {resource} = await this.container.items.create({
             piggyBankId: transaction.getPiggyBankId,
@@ -43,16 +43,17 @@ export class TransactionRepository {
             amount: transaction.getAmount,
             sender: transaction.getSender,
             receiver: transaction.getReceiver,
-            partition: transaction.getPiggyBankId.toString().substring(0, 1),
+            partition: transaction.getPiggyBankId.substring(0, 1),
         });
 
         return resource;
     }
 
-    async getTransactionById(transactionId: string) {
+    async getTransactionById(transactionId: string, piggyBankId: string) {
         try {
-            const document = await this.container.item(transactionId).read();
-            return document.resource;
+            const {resource} = await this.container.item(transactionId, piggyBankId.substring(0, 1)).read();
+
+            return resource;
         } catch (error) {
             // Handle the error, e.g., return null for not found
             console.error("Error getting transaction:", error);
@@ -60,32 +61,35 @@ export class TransactionRepository {
         }
     }
 
-async getTransactionsByPiggyBankId(piggyBankId: number) {
-    const querySpec = {
-        query: "SELECT * FROM c WHERE c.piggyBankId = @piggyBankId",
-        parameters: [
-            {
-                name: "@piggyBankId",
-                value: piggyBankId
-            }
-        ]
-    };
+    async getTransactionsByPiggyBankId(piggyBankId: string) {
+        const querySpec = {
+            query: "SELECT * FROM c WHERE c.piggyBankId = @piggyBankId",
+            parameters: [
+                {
+                    name: "@piggyBankId",
+                    value: piggyBankId
+                }
+            ]
+        };
 
-    const options: FeedOptions = {
-        partitionKey: piggyBankId.toString().substring(0, 1) // Set partition key
-    };
+        const options: FeedOptions = {
+            partitionKey: piggyBankId.substring(0, 1) // Set partition key
+        };
 
-    const { resources } = await this.container.items.query(querySpec, options).fetchAll();
-    return resources;
-}
-
-    
-    async deleteTransactionById(id: string) {
-        const {resource} = await this.container.item(id).delete();
-        return resource;
+        const {resources} = await this.container.items.query(querySpec, options).fetchAll();
+        return resources;
     }
 
+    async deleteTransactionById(id: string, piggyBankId: string, userName: string) {
+        //TODO: adjust balance
+        /*PiggybankRepository.getInstance().then(async (piggybankRepository) => {
+            let userid = await userServices.getUserId(userName);
 
+            let transaction = await this.getTransactionById(id, piggyBankId);
+            await piggybankRepository.adjustBalance(piggyBankId, -transaction.amount, userid);
+        });*/
 
-
+        const {resource} = await this.container.item(id, piggyBankId.substring(0, 1)).delete();
+        return resource;
+    }
 }

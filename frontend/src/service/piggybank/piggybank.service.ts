@@ -26,6 +26,12 @@ export class PiggybankService {
     return this.http.post(`${this.baseUrl}/getAllPiggybanksHttpTrigger`,{"username":auth.getUsername()}, { headers });
   }
 
+  getPiggybankById(id: string,username:string): Observable<any> {
+    const headers = auth.getAuthorizationHeader();
+
+    return this.http.post(`${this.baseUrl}/getPiggybankByIdHttpTrigger`,{"piggyBankId":id,"userName":username}, { headers });
+  }
+
   deletePiggybank(id: string,username: string): Observable<any> {
     const headers = auth.getAuthorizationHeader();
 

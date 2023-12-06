@@ -79,10 +79,13 @@ export class PiggybankRepository {
     }
 
 
-    async getPiggyBankById(piggyBankId: string) {
+    async getPiggyBankById(piggyBankId: string, username: string) {
         try {
-            const document = await this.container.item(piggyBankId.toString()).read();
-            return document.resource;
+            console.log("piggybankid: "+piggyBankId);
+            console.log("username: "+username)
+            const id=await userServices.getUserId(username);
+            const {resource} = await this.container.item(piggyBankId,id.substring(0,1)).read();
+            return resource;
         } catch (error) {
             // Handle the error, e.g., return null for not found
             console.error("Error getting piggy bank:", error);
@@ -102,15 +105,11 @@ export class PiggybankRepository {
         });
         return updatedResource;
 
-
-
-
     }
 
 
     async deletePiggybankById(piggyBankId: string, username: string) {
         const userid: string = await userServices.getUserId(username);
-
 
         const {resource} =await this.container.item(piggyBankId,userid.substring(0,1)).delete();
         return resource;

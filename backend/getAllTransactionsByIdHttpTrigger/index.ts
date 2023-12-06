@@ -4,7 +4,7 @@ import { Transaction } from "../domain/model/transaction";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
         const transaction = req.body.transactionId;
-        const result=transactionsServices.getTransactionById(req.body.transactionId);
+        const result=transactionsServices.getTransactionById(req.body.transactionId,req.body.piggyBankId);
         context.res = {
             body: result,
             headers: {

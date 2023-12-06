@@ -25,9 +25,9 @@ export class TransactionService {
     return this.http.post(`${this.baseUrl}/getAllTransactionsByPiggybankIdHttpTrigger`,{"piggybankId":piggybankId}, { headers });
   }
 
-  deleteTransaction(id: string): Observable<any> {
+  deleteTransaction(id: string,piggybankId:string,userId:string): Observable<any> {
     const headers = auth.getAuthorizationHeader();
 
-    return this.http.post(`${this.baseUrl}/deleteTransactionByIdHttpTrigger`,{"transactionId":id}, { headers });
+    return this.http.post(`${this.baseUrl}/deleteTransactionByIdHttpTrigger`,{"transactionId":id,"piggybankId":piggybankId,"userName":userId}, { headers });
   }
 }

@@ -16,7 +16,7 @@ export class Transaction {
     }
 
     get getPiggyBankId(): string {
-        return this.piggyBankId;
+        return this.piggyBankId
     }
 
     get getName(): string {

@@ -33,7 +33,7 @@ router.post('/create', async function (req: any, res: any, next: any) {
 
 //get piggybank by id
 router.get('/get/:piggyBankId', async function (req: any, res: any, next: any) {
-    const result = await piggybankServices.getPiggyBankById(req.params.piggyBankId);
+    const result = await piggybankServices.getPiggyBankById(req.params.piggyBankId,req.body.username);
     res.send(result);
 });
 

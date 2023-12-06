@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionService} from "../../../service/transaction/transaction.service";
 import {CreateTransactionData} from "../../../types/types";
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-transactioncreate',
@@ -21,10 +22,11 @@ export class TransactioncreateComponent implements OnInit {
     receiver: ['', [Validators.required, Validators.minLength(2)]],
   });
 
-  constructor(private service: TransactionService, private fb: FormBuilder, private router: Router,private route: ActivatedRoute) {
-
-  }
-
+  constructor(private service: TransactionService,
+              private fb: FormBuilder,
+              private router: Router,
+              private route: ActivatedRoute,
+              private location: Location) {}
   ngOnInit() {
     this.piggybankId = String(this.route.snapshot.paramMap.get('piggybankId'));
   }
@@ -44,7 +46,7 @@ export class TransactioncreateComponent implements OnInit {
 
       this.service.createTransaction(transactionData).subscribe(
         () => {
-          this.router.navigate(['/piggybank/overview']);
+          this.router.navigate(['/transaction/all/',this.piggybankId]);
         },
         (error) => {
           this.serverError = error;

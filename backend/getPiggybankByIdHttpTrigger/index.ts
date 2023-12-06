@@ -2,9 +2,9 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import {piggybankServices} from "../domain/service/piggybank.services";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
-    const result = await piggybankServices.getPiggyBankById(req.params.piggyBankId);
-    
+
+    const result = await piggybankServices.getPiggyBankById(req.body.piggyBankId,req.body.userName);
+
     if(result) {
         context.res = {
             body: result,
