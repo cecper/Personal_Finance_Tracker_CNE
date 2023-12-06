@@ -42,7 +42,9 @@ jobs:
           cd ..
 
       - name: Build Angular App
-        run: ng build
+        run: |
+          cd ./frontend 
+          ng build
 
       - name: Run Upload Script
         run: |
