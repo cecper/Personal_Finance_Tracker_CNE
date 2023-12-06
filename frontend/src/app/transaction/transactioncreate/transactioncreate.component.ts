@@ -40,7 +40,6 @@ export class TransactioncreateComponent implements OnInit {
         sender: this.transactionForm.get('sender')?.value as string,
         receiver: this.transactionForm.get('receiver')?.value as string,
       };
-      console.log(transactionData);
 
       this.service.createTransaction(transactionData).subscribe(
         () => {

@@ -24,7 +24,6 @@ export class TransactionOverviewByPiggybankComponent implements OnInit {
   loadTransactions() {
     this.service.getAllTransactions(this.piggybankId).subscribe(
         (data: any) => {
-            console.log(data);
             this.transactions = data;
         },
         (error: any) => {
@@ -32,5 +31,5 @@ export class TransactionOverviewByPiggybankComponent implements OnInit {
         }
     );
 }
-  
+
 }

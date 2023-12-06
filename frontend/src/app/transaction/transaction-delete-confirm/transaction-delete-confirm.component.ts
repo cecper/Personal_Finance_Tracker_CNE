@@ -17,10 +17,9 @@ export class TransactionDeleteConfirmComponent implements OnInit{
   }
 
   onAccept() {
-    
+
     this.service.deleteTransaction(this.transactionId).subscribe(
       () => {
-        console.log("deleted");
         this.router.navigate(['/piggybank/overview/']);
       },
       (error) => {

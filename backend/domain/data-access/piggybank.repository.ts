@@ -79,7 +79,7 @@ export class PiggybankRepository {
     }
 
 
-    async getPiggyBankById(piggyBankId: number) {
+    async getPiggyBankById(piggyBankId: string) {
         try {
             const document = await this.container.item(piggyBankId.toString()).read();
             return document.resource;
@@ -90,7 +90,7 @@ export class PiggybankRepository {
         }
     }
 
-    async adjustBalance(piggyBankId: number, amount: number) {
+    async adjustBalance(piggyBankId: string, amount: number) {
         const piggyBank = await this.getPiggyBankById(piggyBankId);
         const newBalance = piggyBank.balance + amount;
         piggyBank.balance = newBalance;
@@ -102,6 +102,4 @@ export class PiggybankRepository {
         const {resource} =await this.container.item(piggyBankId).delete();
         return resource;
     }
-
-
 }

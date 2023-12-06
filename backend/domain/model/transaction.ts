@@ -1,12 +1,12 @@
 export class Transaction {
-    private piggyBankId: number
+    private piggyBankId: string
     private name: string
     private description: string
     private amount: number
     private sender:string
     private receiver:string
 
-    constructor( piggyBankId: number, name: string, description: string, amount: number, sender: string, receiver: string) {
+    constructor( piggyBankId: string, name: string, description: string, amount: number, sender: string, receiver: string) {
         this.piggyBankId = piggyBankId;
         this.name = name;
         this.description = description;
@@ -15,7 +15,7 @@ export class Transaction {
         this.receiver = receiver;
     }
 
-    get getPiggyBankId(): number {
+    get getPiggyBankId(): string {
         return this.piggyBankId;
     }
 
@@ -31,7 +31,7 @@ export class Transaction {
         return this.amount;
     }
 
-    set setPiggyBankId(value: number) {
+    set setPiggyBankId(value: string) {
         this.piggyBankId = value;
     }
 
