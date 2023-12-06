@@ -36,11 +36,16 @@ find "$local_folder" -type f | while read -r file_path; do
         # Set Content-Type based on file extension
         extension="${file_path##*.}"
         content_type=""
+        # Inside the loop where files are being processed
         if [ "$extension" == "css" ]; then
             content_type="text/css"
+        elif [ "$extension" == "js" ]; then
+            content_type="application/javascript"
         else
-            content_type=$(file --mime-type -b "$file_path")
+            # Set a default Content-Type if needed for other file types
+            content_type="application/octet-stream" # Example: Set a default type
         fi
+
 
         # Upload the file to Blob Storage using curl
         curl -X PUT -T "$file_path" -H "x-ms-blob-type: BlockBlob" -H "Content-Type: $content_type" "$blob_url"

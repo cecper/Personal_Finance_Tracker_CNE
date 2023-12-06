@@ -36,8 +36,6 @@ jobs:
           npm install -g @angular/cli
           cd ..
 
-      # install npm i in frontend folder
-
       - name: 'Install NPM Dependencies'
         run: |
           cd frontend
