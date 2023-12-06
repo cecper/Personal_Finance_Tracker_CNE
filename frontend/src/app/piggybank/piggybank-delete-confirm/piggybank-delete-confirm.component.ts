@@ -12,12 +12,16 @@ export class PiggybankDeleteConfirmComponent implements OnInit{
   serverError: string | null = null;
   constructor(private router:Router,private route: ActivatedRoute,private service:PiggybankService) { }
 
+
+
+
   ngOnInit() {
     this.piggybankId = String(this.route.snapshot.paramMap.get('piggybankId'));
   }
 
   onAccept() {
-    this.service.deletePiggybank(this.piggybankId).subscribe(
+    const username = localStorage.getItem('username') as string;
+    this.service.deletePiggybank(this.piggybankId,username).subscribe(
       () => {
         this.router.navigate(['/piggybank/overview']);
       },

@@ -26,9 +26,9 @@ export class PiggybankService {
     return this.http.post(`${this.baseUrl}/getAllPiggybanksHttpTrigger`,{"username":auth.getUsername()}, { headers });
   }
 
-  deletePiggybank(id: string): Observable<any> {
+  deletePiggybank(id: string,username: string): Observable<any> {
     const headers = auth.getAuthorizationHeader();
 
-    return this.http.post(`${this.baseUrl}/deletepiggybankbyidhttptrigger`,{"piggyBankId":id}, { headers });
+    return this.http.post(`${this.baseUrl}/deletepiggybankbyidhttptrigger`,{"piggyBankId":id , "userName": username}, { headers });
   }
 }
