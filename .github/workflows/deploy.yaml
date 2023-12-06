@@ -26,8 +26,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
     # install ng-cli
-    - name: Install Angular CLI
-      run: cd frontend && npm install
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
 
     - name: Run Upload Script
       run: |
