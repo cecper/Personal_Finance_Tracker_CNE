@@ -7,7 +7,7 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 
 
 # Set the local folder path
-local_folder="frontend/dist"
+local_folder="/frontend/dist"
 
 currentdir=$(pwd)
 cd ./frontend
