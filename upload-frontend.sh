@@ -16,7 +16,11 @@ echo $(pwd)
 cd ./frontend
 ng build frontend
 
+echo "ls dist"
+ls dist
 
+echo "ls dist/frontend"
+ls dist/frontend
 
 # Iterate over each file in the local folder and its subfolders
 
