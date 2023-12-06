@@ -7,15 +7,16 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 
 
 # Set the local folder path
-local_folder="frontend/dist"
+local_folder="dist"
 
 currentdir=$(pwd)
 
-cd ..
 echo "begin"
 echo $(pwd)
 echo "begin ls"
-ls -al
+cd ./frontend
+ng build frontend
+
 
 
 # Iterate over each file in the local folder and its subfolders
