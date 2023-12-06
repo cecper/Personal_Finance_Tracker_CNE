@@ -10,6 +10,8 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 local_folder="frontend/dist"
 
 currentdir=$(pwd)
+
+cd ..
 echo "begin"
 echo $(pwd)
 echo "begin ls"
