@@ -90,13 +90,23 @@ export class PiggybankRepository {
         }
     }
 
-    async adjustBalance(piggyBankId: string, amount: number) {
-        const piggyBank = await this.getPiggyBankById(piggyBankId);
-        const newBalance = piggyBank.balance + amount;
-        piggyBank.balance = newBalance;
-        const { resource } = await this.container.item(piggyBankId.toString()).replace(piggyBank);
-        return resource;
+
+    //this function adjusts the balance of a piggybank with the given amount
+    //piggyBankId: the id of the piggybank so we can find it in the database as "id"
+    async adjustBalance(piggyBankId: string, amount: number, userid: string) {
+        const { resource } = await this.container.item(piggyBankId,userid.substring(0,1)).read();
+        const balance = resource.balance + amount;
+        const { resource: updatedResource } = await this.container.item(piggyBankId.toString()).replace({
+            ...resource,
+            balance,
+        });
+        return updatedResource;
+
+
+
+
     }
+
 
     async deletePiggybankById(piggyBankId: string) {
         const {resource} =await this.container.item(piggyBankId).delete();

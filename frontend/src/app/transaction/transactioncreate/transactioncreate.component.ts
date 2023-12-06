@@ -39,6 +39,7 @@ export class TransactioncreateComponent implements OnInit {
         amount: this.transactionForm.get('amount')?.getRawValue(),
         sender: this.transactionForm.get('sender')?.value as string,
         receiver: this.transactionForm.get('receiver')?.value as string,
+        userName: localStorage.getItem('username') as string
       };
 
       this.service.createTransaction(transactionData).subscribe(

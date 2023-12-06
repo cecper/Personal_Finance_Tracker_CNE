@@ -11,6 +11,7 @@ import {environment} from "../../environments/environment";
 export class PiggybankService {
   //private baseUrl = 'https://functies.azurewebsites.net/api';
   private baseUrl = environment.baseUrl;
+
   constructor(private http: HttpClient) {}
 
   createPiggybank(data: CreatePiggybankData): Observable<any> {

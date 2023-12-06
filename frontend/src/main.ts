@@ -9,5 +9,8 @@ import {enableProdMode} from "@angular/core";
 if(environment.production){
   enableProdMode();
 }
+
+
+
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

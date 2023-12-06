@@ -22,4 +22,5 @@ export interface CreateTransactionData {
   amount: number;
   sender: string;
   receiver: string;
+  userName: string;
 }

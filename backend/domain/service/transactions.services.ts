@@ -13,10 +13,10 @@ export class TransactionsServices {
         return repo.getAllTransaction()
     }
 
-    async createTransaction(transaction: Transaction) {
+    async createTransaction(transaction: Transaction, userName: string) {
         const repo = await this.getRepo();
 
-        return repo.createTransaction(transaction);
+        return repo.createTransaction(transaction, userName);
     }
 
     async getTransactionById(transactionId: string) {

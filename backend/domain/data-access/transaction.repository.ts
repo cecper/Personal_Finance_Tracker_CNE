@@ -3,6 +3,7 @@ import {Connection} from "./connection";
 import {Transaction} from "../model/transaction";
 import {PiggybankRepository} from "./piggybank.repository";
 import { FeedOptions } from '@azure/cosmos';
+import {userServices} from "../service/user.service";
 
 export class TransactionRepository {
     private static instance: TransactionRepository;
@@ -29,9 +30,11 @@ export class TransactionRepository {
     }
 
     //create
-    async createTransaction(transaction: Transaction) {
-        PiggybankRepository.getInstance().then((piggybankRepository) => {
-            piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount);
+    async createTransaction(transaction: Transaction,userName: string) {
+        PiggybankRepository.getInstance().then(async (piggybankRepository) => {
+            let userid = await userServices.getUserId(userName);
+
+            await piggybankRepository.adjustBalance(transaction.getPiggyBankId, transaction.getAmount,  userid);
         });
         const {resource} = await this.container.items.create({
             piggyBankId: transaction.getPiggyBankId,
@@ -81,4 +84,8 @@ async getTransactionsByPiggyBankId(piggyBankId: number) {
         const {resource} = await this.container.item(id).delete();
         return resource;
     }
+
+
+
+
 }
