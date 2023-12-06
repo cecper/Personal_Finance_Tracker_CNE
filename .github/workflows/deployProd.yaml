@@ -41,8 +41,8 @@ jobs:
           npm install
           cd ..
 
-      #- name: Install Angular CLI
-      #  run: npm install -g @angular/cli
+      - name: Build Angular App
+        run: ng build --configuration=production # Use '--prod' for older Angular versions
 
       - name: Run Upload Script
         run: |
