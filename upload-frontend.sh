@@ -11,18 +11,9 @@ local_folder="dist/frontend"
 
 currentdir=$(pwd)
 
-echo "begin"
-echo $(pwd)
 cd ./frontend
-ng build frontend
+ng build frontend --prod
 
-echo "ls dist"
-ls dist
-
-echo "ls dist/frontend"
-ls dist/frontend
-
-# Iterate over each file in the local folder and its subfolders
 
 find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
