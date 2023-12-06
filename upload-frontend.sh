@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 storage_account="$AZURE_STORAGE_ACCOUNT"
 container_name="$AZURE_STORAGE_CONTAINER"
 sas_token="$AZURE_STORAGE_SAS_TOKEN"
