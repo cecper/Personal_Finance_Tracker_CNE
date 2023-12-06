@@ -7,7 +7,7 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 
 
 # Set the local folder path
-local_folder="/frontend/dist"
+local_folder="./frontend/dist"
 
 currentdir=$(pwd)
 echo "1 ls"
@@ -21,7 +21,6 @@ cd ..
 echo "3 ls"
 ls -al
 echo $(pwd)
-cd ..
 echo "Build complete"
 echo $(pwd)
 
