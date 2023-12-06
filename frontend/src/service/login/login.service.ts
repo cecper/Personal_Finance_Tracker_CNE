@@ -4,19 +4,20 @@ import {LoginData} from "../../types/types";
 import {Observable, tap} from "rxjs";
 import * as auth from "../authorization";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from "../../../environments/environment"; // Import environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private jwtHelper: JwtHelperService = new JwtHelperService();
-
-  private baseUrl = 'http://localhost:3000/user';
+  private baseUrl = environment.baseUrl;
+  //private baseUrl = 'http://localhost:3000/user';
   constructor(private http: HttpClient) {
   }
 
   login(data: LoginData) : Observable<any>{
-    return this.http.post(`https://functies.azurewebsites.net/api/LoginHttpTrigger`, data).pipe(
+    return this.http.post(`${this.baseUrl}/LoginHttpTrigger`, data).pipe(
       tap(res => this.setSession(res,data.username))
     );
   }

@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {CreatePiggybankData, LoginData} from "../../types/types";
 import * as auth from "../authorization";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PiggybankService {
-  private baseUrl = 'https://functies.azurewebsites.net/api';
-
+  //private baseUrl = 'https://functies.azurewebsites.net/api';
+  private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
   createPiggybank(data: CreatePiggybankData): Observable<any> {

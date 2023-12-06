@@ -13,14 +13,14 @@ on:
 #
 # 2. Change these variables for your configuration:
 env:
-  AZURE_FUNCTIONAPP_NAME: 'functies'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_NAME: 'functiesProd'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend'       # set this to the path to your function app project, defaults to the repository root
   NODE_VERSION: '10.x'              # set this to the node version to use (e.g. '8.x', '10.x', '12.x')
 
 jobs:
   upload-frontend:
+    needs: build-and-deploy-functions
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2

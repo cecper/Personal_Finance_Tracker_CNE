@@ -19,6 +19,7 @@ env:
 
 jobs:
   upload-frontend:
+    needs: build-and-deploy-functions
     runs-on: ubuntu-latest
 
     steps:
