@@ -11,7 +11,7 @@ local_folder="dist/frontend"
 
 currentdir=$(pwd)
 
-#cd ./frontend
+cd ./frontend
 #ng build --prod
 
 
