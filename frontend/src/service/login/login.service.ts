@@ -4,7 +4,7 @@ import {LoginData} from "../../types/types";
 import {Observable, tap} from "rxjs";
 import * as auth from "../authorization";
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from "../../../environments/environment"; // Import environment
+import { environment } from "../../environments/environment"; // Import environment
 
 @Injectable({
   providedIn: 'root'

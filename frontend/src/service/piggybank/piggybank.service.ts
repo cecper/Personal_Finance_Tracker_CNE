@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {CreatePiggybankData, LoginData} from "../../types/types";
 import * as auth from "../authorization";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
