@@ -12,7 +12,7 @@ local_folder="dist/frontend"
 currentdir=$(pwd)
 
 cd ./frontend
-ng build frontend --prod
+#ng build --prod
 
 
 find "$local_folder" -type f | while read -r file_path; do
