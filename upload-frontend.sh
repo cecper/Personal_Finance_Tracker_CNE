@@ -13,10 +13,12 @@ currentdir=$(pwd)
 cd ./frontend
 echo "Building frontend"
 ng build frontend
+
 cd ..
+echo $(pwd)
 cd ..
 echo "Build complete"
-echo $currentdir
+echo $(pwd)
 
 # Iterate over each file in the local folder and its subfolders
 
