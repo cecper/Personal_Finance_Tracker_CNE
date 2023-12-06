@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Set your Azure Storage account name, container name, and SAS token
-storage_account="staticstorageaccountcne"
-container_name='$web'
-sas_token="?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-02-02T20:27:52Z&st=2023-11-29T12:27:52Z&spr=https&sig=YoJywV8d4U1uNYYDqh%2FRvPCaGCSAnXm9s06HlcIighY%3D"
-
 storage_account="$AZURE_STORAGE_ACCOUNT"
 container_name="$AZURE_STORAGE_CONTAINER"
 sas_token="$AZURE_STORAGE_SAS_TOKEN"
