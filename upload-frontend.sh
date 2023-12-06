@@ -10,19 +10,15 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 local_folder="./frontend/dist"
 
 currentdir=$(pwd)
-echo "1 ls"
-ls -al
+
 cd ./frontend
 echo "Building frontend"
 ng build frontend
-echo "2 ls"
-ls -al
+ls ./dist -al
 cd ..
-echo "3 ls"
-ls -al
-echo $(pwd)
+
 echo "Build complete"
-echo $(pwd)
+
 
 # Iterate over each file in the local folder and its subfolders
 
