@@ -32,8 +32,6 @@ jobs:
           node-version: '18.13'
       - name: Install Angular CLI
         run: npm install -g @angular/cli
-        with:
-          node-version: '18.13'
 
       - name: Run Upload Script
         run: |
