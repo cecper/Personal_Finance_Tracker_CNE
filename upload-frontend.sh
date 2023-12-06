@@ -36,14 +36,12 @@ find "$local_folder" -type f | while read -r file_path; do
         # Set Content-Type based on file extension
         extension="${file_path##*.}"
         content_type=""
-        # Inside the loop where files are being processed
         if [ "$extension" == "css" ]; then
             content_type="text/css"
         elif [ "$extension" == "js" ]; then
             content_type="application/javascript"
         else
-            # Set a default Content-Type if needed for other file types
-            content_type="application/octet-stream" # Example: Set a default type
+            content_type=$(file --mime-type -b "$file_path")
         fi
 
 
