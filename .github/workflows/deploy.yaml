@@ -30,8 +30,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.13'
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
+
+      # install npm i in frontend folder
+
+      - name: 'Install NPM Dependencies'
+        run: |
+          cd frontend
+          npm install
+          cd ..
+
+      #- name: Install Angular CLI
+      #  run: npm install -g @angular/cli
 
       - name: Run Upload Script
         run: |
