@@ -1,5 +1,5 @@
 // environments/environment.prod.ts
 export const environment = {
-  production: true,
+  production: false,
   baseUrl: 'https://functies.azurewebsites.net/api' // Production URL
 };
