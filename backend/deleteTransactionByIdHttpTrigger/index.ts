@@ -2,7 +2,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { transactionsServices } from "../domain/service/transactions.services";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
-        const resp= await transactionsServices.deleteTransactionById(req.body.transactionId);
+        const resp= await transactionsServices.deleteTransactionById(req.body.transactionId,req.body.piggybankId,req.body.userName);
         context.res = {
             body: resp,
             headers: {

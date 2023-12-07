@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from 'src/service/transaction/transaction.service';
-
+import { getUsername } from "../../../service/authorization";
+import { Location } from '@angular/common'
 @Component({
   selector: 'app-transaction-delete-confirm',
   templateUrl: './transaction-delete-confirm.component.html',
@@ -10,18 +11,22 @@ import { TransactionService } from 'src/service/transaction/transaction.service'
 export class TransactionDeleteConfirmComponent implements OnInit{
   transactionId:string='';
   serverError: string | null = null;
-  constructor(private router:Router,private route: ActivatedRoute,private service:TransactionService) { }
+  piggybankId: string = '';
+  userId: string = '';
+  constructor(private router:Router,private route: ActivatedRoute,private service:TransactionService,
+              private location: Location) { }
 
   ngOnInit() {
     this.transactionId = String(this.route.snapshot.paramMap.get('transactionId'));
+    this.piggybankId = String(this.route.snapshot.paramMap.get('piggybankId'));
+
   }
 
   onAccept() {
-    
-    this.service.deleteTransaction(this.transactionId).subscribe(
+    this.userId = getUsername();
+    this.service.deleteTransaction(this.transactionId,this.piggybankId,this.userId).subscribe(
       () => {
-        console.log("deleted");
-        this.router.navigate(['/piggybank/overview/']);
+        this.location.back();
       },
       (error) => {
         this.serverError = error;

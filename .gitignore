@@ -184,3 +184,7 @@ Thumbs.db
 /frontend/out-tsc/
 /.vscode/
 /frontend/.loca
+backend/.vscode/tasks.json
+backend/.vscode/settings.json
+backend/.vscode/launch.json
+backend/.vscode/extensions.json

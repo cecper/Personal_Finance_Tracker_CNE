@@ -25,7 +25,8 @@ export class PiggybankcreateComponent {
   constructor(
     private service: PiggybankService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   create() {
@@ -48,6 +49,7 @@ export class PiggybankcreateComponent {
         (response: any) => {
           // Redirect to the desired page upon successful response
           this.router.navigate(['/piggybank/overview']);
+
         },
         (error: any) => {
           if (error.status === 400) {

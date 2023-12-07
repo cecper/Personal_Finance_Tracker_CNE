@@ -35,7 +35,6 @@ export class LoginComponent {
     }
 
     if (loginData.username && loginData.password) {
-      console.log("LoginComponent: login: loginData: ", loginData);
       this.authService.login(loginData)
         .subscribe(
           () => {

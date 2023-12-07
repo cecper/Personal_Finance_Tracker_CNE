@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path:'transaction/delete/:transactionId',
+    path:'transaction/delete/:transactionId/:piggybankId',
     component: TransactionDeleteConfirmComponent,
     canActivate: [AuthGuard],
   }

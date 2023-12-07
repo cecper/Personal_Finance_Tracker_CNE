@@ -25,14 +25,14 @@ export class PiggybankServices {
 
     }
 
-    async getPiggyBankById(piggyBankId: number) {
+    async getPiggyBankById(piggyBankId: string,username:string) {
         const repo = await this.getRepo();
-        return repo.getPiggyBankById(piggyBankId);
+        return repo.getPiggyBankById(piggyBankId,username);
     }
 
-    async deletePiggybank(piggyBankId:string){
+    async deletePiggybank(piggyBankId:string,username:string){
         const repo = await this.getRepo();
-        return repo.deletePiggybankById(piggyBankId);
+        return repo.deletePiggybankById(piggyBankId,username);
     }
 }
 

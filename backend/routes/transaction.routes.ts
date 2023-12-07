@@ -16,7 +16,7 @@ router.post('/create', async function (req: any, res: any, next: any) {
 
     try {
         const transaction = new Transaction(req.body.piggyBankId, req.body.name, req.body.description, req.body.amount, req.body.sender, req.body.receiver);
-        const result = await transactionsServices.createTransaction(transaction);
+        const result = await transactionsServices.createTransaction(transaction, req.body.userName);
         res.status(200).json(result);
     }
     catch (error) {

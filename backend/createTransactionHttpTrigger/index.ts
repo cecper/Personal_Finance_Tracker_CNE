@@ -6,7 +6,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     try {
         const transaction = new Transaction(req.body.piggyBankId, req.body.name, req.body.description, req.body.amount, req.body.sender, req.body.receiver);
-        const result = await transactionsServices.createTransaction(transaction);
+        const userName = req.body.userName;
+        const result = await transactionsServices.createTransaction(transaction, userName);
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: result,

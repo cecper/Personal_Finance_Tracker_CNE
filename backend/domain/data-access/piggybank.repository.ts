@@ -79,10 +79,13 @@ export class PiggybankRepository {
     }
 
 
-    async getPiggyBankById(piggyBankId: number) {
+    async getPiggyBankById(piggyBankId: string, username: string) {
         try {
-            const document = await this.container.item(piggyBankId.toString()).read();
-            return document.resource;
+            console.log("piggybankid: "+piggyBankId);
+            console.log("username: "+username)
+            const id=await userServices.getUserId(username);
+            const {resource} = await this.container.item(piggyBankId,id.substring(0,1)).read();
+            return resource;
         } catch (error) {
             // Handle the error, e.g., return null for not found
             console.error("Error getting piggy bank:", error);
@@ -90,18 +93,25 @@ export class PiggybankRepository {
         }
     }
 
-    async adjustBalance(piggyBankId: number, amount: number) {
-        const piggyBank = await this.getPiggyBankById(piggyBankId);
-        const newBalance = piggyBank.balance + amount;
-        piggyBank.balance = newBalance;
-        const { resource } = await this.container.item(piggyBankId.toString()).replace(piggyBank);
-        return resource;
+
+    //this function adjusts the balance of a piggybank with the given amount
+    //piggyBankId: the id of the piggybank so we can find it in the database as "id"
+    async adjustBalance(piggyBankId: string, amount: number, userid: string) {
+        const { resource } = await this.container.item(piggyBankId,userid.substring(0,1)).read();
+        const balance = resource.balance + amount;
+        const { resource: updatedResource } = await this.container.item(piggyBankId.toString()).replace({
+            ...resource,
+            balance,
+        });
+        return updatedResource;
+
     }
 
-    async deletePiggybankById(piggyBankId: string) {
-        const {resource} =await this.container.item(piggyBankId).delete();
+
+    async deletePiggybankById(piggyBankId: string, username: string) {
+        const userid: string = await userServices.getUserId(username);
+
+        const {resource} =await this.container.item(piggyBankId,userid.substring(0,1)).delete();
         return resource;
     }
-
-
 }
