@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PiggybankService } from "../../../service/piggybank/piggybank.service";
 import { CreatePiggybankData } from "../../../types/types";
-import { LoginService } from "../../../service/login/login.service";
 import { getUsername } from "../../../service/authorization";
 import { Router } from '@angular/router'; // Import Router
 
-// ... (your imports)
 
 @Component({
   selector: 'app-piggybankcreate',
@@ -25,8 +23,7 @@ export class PiggybankcreateComponent {
   constructor(
     private service: PiggybankService,
     private fb: FormBuilder,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   create() {
