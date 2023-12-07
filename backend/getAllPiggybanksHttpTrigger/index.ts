@@ -10,33 +10,29 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
         if (cachedPiggies) {
             context.res = {
-                status: 200,
-                body: {
-                    data: cachedPiggies
-                },
+                body:  cachedPiggies,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Cache': 'true' // Custom header
                 }
             };
-
-            context.res.set('cache', 'true')
             await cache.quit();
-
         } else {
+
             const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+            const json=JSON.stringify(piggyBanks);
+            await cache.setPiggybank(req.body.username, json);
             context.res = {
-                status: 200,
-                body: {
-                    data: piggyBanks
-                },
+                body:  piggyBanks,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Cache': 'false' // Custom header
                 }
             };
-            context.res.set('cache', 'false')
             await cache.quit();
         }
     } catch (error) {
+        console.error(error);
         context.res = {
             status: 400,
             headers: {
@@ -50,3 +46,4 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 };
 
 export default httpTrigger;
+
