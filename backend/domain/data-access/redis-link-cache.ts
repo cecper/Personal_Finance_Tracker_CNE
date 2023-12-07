@@ -68,15 +68,26 @@ export class LinkCache {
         return await this.cacheClient.get(username);
     }
 
-    async setLinkMapping(link: string, mapping: string) {
-        await this.cacheClient.set(mapping, link, { EX: 600 });
+    async addPiggybank(username: string, piggybank: any) {
+        const cachedPiggies = await this.getPiggybank(username);
+        const piggybanks = JSON.parse(cachedPiggies);
+        piggybanks.push(piggybank);
+        const json=JSON.stringify(piggybanks);
+        await this.setPiggybank(username, json);
     }
 
-    async getLinkMapping(mapping: string) {
-        return await this.cacheClient.get(mapping);
+    async removePiggybank(username: string, piggybank: any) {
+        const cachedPiggies = await this.getPiggybank(username);
+
+        const piggybanks = JSON.parse(cachedPiggies);
+        for (let i = 0; i < piggybanks.length; i++) {
+            if (piggybanks[i].id === piggybank.id) {
+                piggybanks.splice(i, 1);
+            }
+        }
+
+        const json = JSON.stringify(piggybanks);
+        await this.setPiggybank(username, json);
     }
-
-
-
 
 }

@@ -1,16 +1,20 @@
 import { HttpHeaders } from "@angular/common/http";
 
 function getAuthorizationHeader(): HttpHeaders {
-  const token = localStorage.getItem('id_token') || '';
+  const token = sessionStorage.getItem('id_token') || '';
   return new HttpHeaders().set('Authorization', `Bearer ${token}`);
 }
 
 function getUsername(): string {
-  return localStorage.getItem('username') || '';
+  return sessionStorage.getItem('username') || '';
+}
+
+function getTokenId(): string {
+  return sessionStorage.getItem('id_token') || '';
 }
 
 function isLoggedIn(): boolean {
-  return !!localStorage.getItem('id_token');
+  return !!sessionStorage.getItem('id_token');
 }
 
-export { getAuthorizationHeader, getUsername, isLoggedIn };
+export { getAuthorizationHeader, getUsername, isLoggedIn, getTokenId };

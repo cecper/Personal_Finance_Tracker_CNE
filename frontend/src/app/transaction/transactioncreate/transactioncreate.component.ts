@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionService} from "../../../service/transaction/transaction.service";
 import {CreateTransactionData} from "../../../types/types";
 import { Location } from '@angular/common'
-
+import { getUsername } from "../../../service/authorization";
 @Component({
   selector: 'app-transactioncreate',
   templateUrl: './transactioncreate.component.html',
@@ -41,7 +41,7 @@ export class TransactioncreateComponent implements OnInit {
         amount: this.transactionForm.get('amount')?.getRawValue(),
         sender: this.transactionForm.get('sender')?.value as string,
         receiver: this.transactionForm.get('receiver')?.value as string,
-        userName: localStorage.getItem('username') as string
+        userName: getUsername()
       };
 
       this.service.createTransaction(transactionData).subscribe(

@@ -81,21 +81,15 @@ export class PiggybankRepository {
 
     async getPiggyBankById(piggyBankId: string, username: string) {
         try {
-            console.log("piggybankid: "+piggyBankId);
-            console.log("username: "+username)
             const id=await userServices.getUserId(username);
             const {resource} = await this.container.item(piggyBankId,id.substring(0,1)).read();
             return resource;
         } catch (error) {
-            // Handle the error, e.g., return null for not found
             console.error("Error getting piggy bank:", error);
             return null;
         }
     }
 
-
-    //this function adjusts the balance of a piggybank with the given amount
-    //piggyBankId: the id of the piggybank so we can find it in the database as "id"
     async adjustBalance(piggyBankId: string, amount: number, userid: string) {
         const { resource } = await this.container.item(piggyBankId,userid.substring(0,1)).read();
         const balance = resource.balance + amount;
@@ -110,8 +104,8 @@ export class PiggybankRepository {
 
     async deletePiggybankById(piggyBankId: string, username: string) {
         const userid: string = await userServices.getUserId(username);
-
+        const deleted=await this.getPiggyBankById(piggyBankId,username)
         const {resource} =await this.container.item(piggyBankId,userid.substring(0,1)).delete();
-        return resource;
+        return deleted;
     }
 }
