@@ -15,8 +15,9 @@
               <h3 class="card-title">{{ piggybank.name }}</h3>
               <p class="card-text">Balance: {{ piggybank.balance | currency:'EUR':'symbol-narrow'}}</p>
               <a class="btn btn-warning me-3" routerLink="{{'/../transaction/all/' + piggybank.id}}">Details</a>
-              <a class="btn btn-primary" routerLink="{{'/../transaction/create/' + piggybank.id}}">Add Transaction</a>
-              <a class="btn btn-outline-danger" routerLink="{{'/piggybank/delete/' + piggybank.id}}">Delete piggybank</a>
+              <a class="btn btn-primary me-3" routerLink="{{'/../transaction/create/' + piggybank.id}}">Add
+                Transaction</a>
+              <a class="btn btn-danger" routerLink="{{'/piggybank/delete/' + piggybank.id}}">Delete piggybank</a>
             </div>
           </div>
         </div>
