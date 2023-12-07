@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PiggybankService } from 'src/service/piggybank/piggybank.service';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-piggybank-delete-confirm',
@@ -10,7 +11,7 @@ import { PiggybankService } from 'src/service/piggybank/piggybank.service';
 export class PiggybankDeleteConfirmComponent implements OnInit{
   piggybankId:string='';
   serverError: string | null = null;
-  constructor(private router:Router,private route: ActivatedRoute,private service:PiggybankService) { }
+  constructor(private router:Router,private route: ActivatedRoute,private service:PiggybankService,private location: Location) { }
 
 
 
@@ -23,7 +24,7 @@ export class PiggybankDeleteConfirmComponent implements OnInit{
     const username = localStorage.getItem('username') as string;
     this.service.deletePiggybank(this.piggybankId,username).subscribe(
       () => {
-        this.router.navigate(['/piggybank/overview']);
+        this.location.back();
       },
       (error) => {
         this.serverError = error;
@@ -32,6 +33,6 @@ export class PiggybankDeleteConfirmComponent implements OnInit{
   }
 
   onCancel() {
-    this.router.navigate(['/piggybank/overview']);
+    this.location.back();
   }
 }

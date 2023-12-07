@@ -35,6 +35,6 @@ export class TransactionDeleteConfirmComponent implements OnInit{
   }
 
   onCancel() {
-    this.router.navigate(['/piggybank/overview/']);
+    this.location.back();
   }
 }

@@ -1,19 +1,39 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { piggybankServices } from "../domain/service/piggybank.services";
 
-const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
+import { LinkCache } from "../domain/data-access/redis-link-cache";
 
-    try{
-        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
-        context.res = {
-            body: piggyBanks,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    try {
+        const cache = await LinkCache.getInstance();
+        const cachedPiggies = await cache.getPiggybank(req.body.username);
+
+        if (cachedPiggies) {
+            context.res = {
+                status: 200,
+                body: {
+                    source: 'cache',
+                    data: cachedPiggies
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            return;
+        } else {
+            const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+            context.res = {
+                status: 200,
+                body: {
+                    source: 'not cache',
+                    data: piggyBanks
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
         }
-    }
-    catch (error) {
+    } catch (error) {
         context.res = {
             status: 400,
             headers: {
@@ -22,7 +42,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             body: {
                 message: "user has no piggybanks"
             }
-        }
+        };
     }
 };
 
