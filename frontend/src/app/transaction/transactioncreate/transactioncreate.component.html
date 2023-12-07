@@ -27,6 +27,11 @@
               <label for="description" class="form-label">Description:</label>
               <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="description"
                 formControlName="description" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('description')?.touched) && transactionForm.get('description')?.hasError('required')"
+                class="text-danger">
+                Description is required.
+              </div>
             </div>
 
             <div class="mb-3">

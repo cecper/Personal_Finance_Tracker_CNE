@@ -3,8 +3,8 @@
     <div class="col-md-6">
       <div class="card bg-dark text-white">
         <div class="card-header">
-          <h2>Piggybank:</h2>
-          <h1>Piggybank name: {{ piggybank.name }}</h1>
+          <h1>Piggybank:</h1>
+          <p>Piggybank name: {{ piggybank.name }}</p>
           <p>Balance: {{ piggybank.balance }}</p>
 
           <h2>Transaction Overview</h2>
@@ -14,10 +14,9 @@
               {{ serverError }}
             </div>
           </div>
-          <a class="btn btn-primary" routerLink="{{'/../transaction/create/' + piggybankId}}">Add Transaction</a>
 
           <div *ngIf="transactions.length > 0">
-            <table class="table">
+            <table class="table bg-dark">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -34,9 +33,9 @@
                   <td>{{ transaction.description }}</td>
                   <td>{{ transaction.sender }}</td>
                   <td>{{ transaction.receiver }}</td>
-                  <a class="btn btn-danger"
-                    routerLink="{{'/transaction/delete/' + transaction.id+'/'+piggybankId}}">Delete
-                    transaction</a>
+                  <a class="bg-dark" routerLink="{{'/transaction/delete/' + transaction.id+'/'+piggybankId}}">
+                    <button class="btn btn-danger mt-3">Delete Transaction</button>
+                  </a>
                 </tr>
               </tbody>
             </table>
@@ -45,6 +44,10 @@
           <div *ngIf="transactions.length === 0">
             <p>No transactions available.</p>
           </div>
+
+          <a class="btn btn-primary" routerLink="{{'/../transaction/create/' + piggybankId}}">Add
+            Transaction</a>
+
         </div>
       </div>
     </div>
