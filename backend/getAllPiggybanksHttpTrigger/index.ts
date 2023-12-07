@@ -12,26 +12,29 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             context.res = {
                 status: 200,
                 body: {
-                    source: 'cache',
                     data: cachedPiggies
                 },
                 headers: {
                     'Content-Type': 'application/json'
                 }
             };
-            return;
+
+            context.res.set('cache', 'true')
+            await cache.quit();
+
         } else {
             const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
             context.res = {
                 status: 200,
                 body: {
-                    source: 'not cache',
                     data: piggyBanks
                 },
                 headers: {
                     'Content-Type': 'application/json'
                 }
             };
+            context.res.set('cache', 'false')
+            await cache.quit();
         }
     } catch (error) {
         context.res = {
