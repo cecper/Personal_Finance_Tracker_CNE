@@ -13,7 +13,7 @@ export class TransactionDeleteConfirmComponent implements OnInit{
   serverError: string | null = null;
   piggybankId: string = '';
   userId: string = '';
-  constructor(private router:Router,private route: ActivatedRoute,private service:TransactionService,
+  constructor(private route: ActivatedRoute,private service:TransactionService,
               private location: Location) { }
 
   ngOnInit() {
@@ -35,6 +35,6 @@ export class TransactionDeleteConfirmComponent implements OnInit{
   }
 
   onCancel() {
-    this.router.navigate(['/piggybank/overview/']);
+    this.location.back();
   }
 }

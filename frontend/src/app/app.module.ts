@@ -15,6 +15,7 @@ import { TransactionOverviewByPiggybankComponent } from './transaction/transacti
 import { PiggybankDeleteConfirmComponent } from './piggybank/piggybank-delete-confirm/piggybank-delete-confirm.component';
 import { TransactionDeleteConfirmComponent } from './transaction/transaction-delete-confirm/transaction-delete-confirm.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
