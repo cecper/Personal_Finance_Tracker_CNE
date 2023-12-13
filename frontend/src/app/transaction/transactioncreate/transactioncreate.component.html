@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card">
+      <div class="card bg-dark text-white">
         <div class="card-header">
           <h2>Create Transaction</h2>
         </div>
@@ -27,6 +27,11 @@
               <label for="description" class="form-label">Description:</label>
               <input (keyup.enter)="createTransaction()" type="text" class="form-control" id="description"
                 formControlName="description" required>
+              <div
+                *ngIf="(submitted || transactionForm.get('description')?.touched) && transactionForm.get('description')?.hasError('required')"
+                class="text-danger">
+                Description is required.
+              </div>
             </div>
 
             <div class="mb-3">

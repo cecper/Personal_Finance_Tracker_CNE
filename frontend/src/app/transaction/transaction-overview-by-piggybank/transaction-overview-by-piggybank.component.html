@@ -1,42 +1,55 @@
-<div class="container">
-    <h2>Piggybank:</h2>
-    <h1>Piggybank name: {{ piggybank.name }}</h1>
-    <p>Balance: {{ piggybank.balance }}</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark text-white">
+        <div class="card-header">
+          <h1>Piggybank:</h1>
+          <p>Piggybank name: {{ piggybank.name }}</p>
+          <p>Balance: {{ piggybank.balance }}</p>
 
-    <h2>Transaction Overview</h2>
+          <h2>Transaction Overview</h2>
 
-    <div *ngIf="serverError">
-      <div class="alert alert-danger">
-        {{ serverError }}
+          <div *ngIf="serverError">
+            <div class="alert alert-danger">
+              {{ serverError }}
+            </div>
+          </div>
+
+          <div *ngIf="transactions.length > 0">
+            <table class="table bg-dark">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Sender</th>
+                  <th>Receiver</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let transaction of transactions">
+                  <td>{{ transaction.name }}</td>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.description }}</td>
+                  <td>{{ transaction.sender }}</td>
+                  <td>{{ transaction.receiver }}</td>
+                  <a class="bg-dark" routerLink="{{'/transaction/delete/' + transaction.id+'/'+piggybankId}}">
+                    <button class="btn btn-danger mt-3">Delete Transaction</button>
+                  </a>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngIf="transactions.length === 0">
+            <p>No transactions available.</p>
+          </div>
+
+          <a class="btn btn-primary" routerLink="{{'/../transaction/create/' + piggybankId}}">Add
+            Transaction</a>
+
+        </div>
       </div>
     </div>
-    <a class="btn btn-primary" routerLink="{{'/../transaction/create/' + piggybankId}}">Add Transaction</a>
-
-    <div *ngIf="transactions.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Sender</th>
-            <th>Receiver</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let transaction of transactions">
-            <td>{{ transaction.name }}</td>
-            <td>{{ transaction.amount }}</td>
-            <td>{{ transaction.description }}</td>
-            <td>{{ transaction.sender }}</td>
-            <td>{{ transaction.receiver }}</td>
-            <a class="btn btn-outline-danger" routerLink="{{'/transaction/delete/' + transaction.id+'/'+piggybankId}}">Delete transaction</a>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div *ngIf="transactions.length === 0">
-      <p>No transactions available.</p>
-    </div>
   </div>
+</div>

@@ -1,7 +1,16 @@
-<div class="confirmation-modal">
-    <h2>Confirm Delete</h2>
-    <p>Are you sure you want to delete this item?</p>
-    <button (click)="onAccept()">Accept</button>
-    <button (click)="onCancel()">Cancel</button>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark text-white">
+        <div class="card-header">
+          <h2>Delete Piggybank</h2>
+        </div>
+        <div class="card-body">
+          <p>Are you sure you want to delete this Piggybank?</p>
+          <button (click)="onAccept()" class="btn btn-primary me-3">Confirm</button>
+          <button (click)="onCancel()" class="btn btn-danger me-3">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>
