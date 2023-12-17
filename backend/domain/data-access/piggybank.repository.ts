@@ -1,7 +1,7 @@
-import {Piggybank} from "../model/piggybank";
-import { Container} from "@azure/cosmos";
-import {Connection} from "./connection";
-import {userServices} from "../service/user.service";
+import { Piggybank } from "../model/piggybank";
+import { Container } from "@azure/cosmos";
+import { Connection } from "./connection";
+import { userServices } from "../service/user.service";
 import { FeedOptions } from '@azure/cosmos';
 
 export class PiggybankRepository {
@@ -14,7 +14,7 @@ export class PiggybankRepository {
     static async getInstance(): Promise<PiggybankRepository> {
         if (!this.instance) {
             const cosmosClient = Connection.createCosmosClient();
-            const container = await Connection.initializeContainer(cosmosClient,"piggy-bank",["/partition"]);
+            const container = await Connection.initializeContainer(cosmosClient, "piggy-bank", ["/partition"]);
 
             this.instance = new PiggybankRepository(container);
         }
@@ -22,8 +22,8 @@ export class PiggybankRepository {
     }
 
 
-    async getAllPiggyBanks(username:string) {
-        const userid:string = await userServices.getUserId(username);
+    async getAllPiggyBanks(username: string) {
+        const userid: string = await userServices.getUserId(username);
         const querySpec = {
             query: "SELECT * FROM piggybank p WHERE p.userId = @userId",
             parameters: [
@@ -36,7 +36,7 @@ export class PiggybankRepository {
         const options: FeedOptions = {
             partitionKey: userid.toString().substring(0, 1) // Set partition key
         };
-    
+
         const { resources } = await this.container.items.query(querySpec, options).fetchAll();
 
         return resources;
@@ -81,8 +81,8 @@ export class PiggybankRepository {
 
     async getPiggyBankById(piggyBankId: string, username: string) {
         try {
-            const id=await userServices.getUserId(username);
-            const {resource} = await this.container.item(piggyBankId,id.substring(0,1)).read();
+            const id = await userServices.getUserId(username);
+            const { resource } = await this.container.item(piggyBankId, id.substring(0, 1)).read();
             return resource;
         } catch (error) {
             console.error("Error getting piggy bank:", error);
@@ -91,21 +91,24 @@ export class PiggybankRepository {
     }
 
     async adjustBalance(piggyBankId: string, amount: number, userid: string) {
-        const { resource } = await this.container.item(piggyBankId,userid.substring(0,1)).read();
-        const balance = resource.balance + amount;
-        const { resource: updatedResource } = await this.container.item(piggyBankId.toString()).replace({
-            ...resource,
-            balance,
-        });
-        return updatedResource;
+        const { resource } = await this.container.item(piggyBankId, userid.substring(0, 1)).read();
 
+
+        const updatedBalance = resource.balance + amount;
+
+        const { resource: updatedResource } = await this.container.item(piggyBankId, userid.substring(0, 1)).replace({
+            ...resource,
+            balance: updatedBalance,
+        });
+
+        return updatedResource;
     }
 
 
     async deletePiggybankById(piggyBankId: string, username: string) {
         const userid: string = await userServices.getUserId(username);
-        const deleted=await this.getPiggyBankById(piggyBankId,username)
-        const {resource} =await this.container.item(piggyBankId,userid.substring(0,1)).delete();
+        const deleted = await this.getPiggyBankById(piggyBankId, username)
+        const { resource } = await this.container.item(piggyBankId, userid.substring(0, 1)).delete();
         return deleted;
     }
 }
