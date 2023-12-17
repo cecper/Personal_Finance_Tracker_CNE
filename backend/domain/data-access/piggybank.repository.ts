@@ -92,16 +92,13 @@ export class PiggybankRepository {
 
     async adjustBalance(piggyBankId: string, amount: number, userid: string) {
         const { resource } = await this.container.item(piggyBankId, userid.substring(0, 1)).read();
-
-
-        const updatedBalance = resource.balance + amount;
-
-        const { resource: updatedResource } = await this.container.item(piggyBankId, userid.substring(0, 1)).replace({
+        const balance = resource.balance + amount;
+        const { resource: updatedResource } = await this.container.item(piggyBankId.toString()).replace({
             ...resource,
-            balance: updatedBalance,
+            balance,
         });
-
         return updatedResource;
+
     }
 
 
