@@ -13,10 +13,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         const result = await transactionsServices.createTransaction(transaction, userName);
 
         const cache = await LinkCache.getInstance();
-        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+        const piggyBanks = await piggybankServices.getAllPiggyBanks(userName);
         const json=JSON.stringify(piggyBanks);
-        await cache.resetPiggybank(req.body.username, json);
-
+        await cache.setPiggybank(userName, json);
+        await cache.quit();
         context.res = {
 
             body: result,
@@ -32,7 +32,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 "Content-Type": "application/json"
             },
             body: {
-                message: "username or email already exists"
+                message: "creating transaction failed"
             }
         }
     }

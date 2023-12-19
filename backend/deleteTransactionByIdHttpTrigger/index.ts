@@ -7,10 +7,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         const resp= await transactionsServices.deleteTransactionById(req.body.transactionId,req.body.piggybankId,req.body.userName);
         const cache = await LinkCache.getInstance();
 
-        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.username);
+        const piggyBanks = await piggybankServices.getAllPiggyBanks(req.body.userName);
         const json=JSON.stringify(piggyBanks);
-        await cache.resetPiggybank(req.body.username, json);
-
+        await cache.setPiggybank(req.body.userName, json);
+        await cache.quit();
         context.res = {
             body: resp,
             headers: {
@@ -19,6 +19,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
     }
     catch (error) {
+        console.log(error);
         context.res = { 
             status: 400,
             headers: {
