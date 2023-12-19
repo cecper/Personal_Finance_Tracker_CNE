@@ -5,7 +5,7 @@
         <div class="card-header">
           <h1>Piggybank:</h1>
           <p>Piggybank name: {{ piggybank.name }}</p>
-          <p>Balance: {{ piggybank.balance }}</p>
+          <p>Balance: {{ piggybank.balance | currency:'EUR':'symbol-narrow'}}</p>
 
           <h2>Transaction Overview</h2>
 
@@ -29,7 +29,7 @@
               <tbody>
                 <tr *ngFor="let transaction of transactions">
                   <td>{{ transaction.name }}</td>
-                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.amount | currency:'EUR':'symbol-narrow'}}</td>
                   <td>{{ transaction.description }}</td>
                   <td>{{ transaction.sender }}</td>
                   <td>{{ transaction.receiver }}</td>
