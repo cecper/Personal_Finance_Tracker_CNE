@@ -1,6 +1,8 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { Transaction } from "../domain/model/transaction";
 import { transactionsServices } from "../domain/service/transactions.services";
+import {piggybankServices} from "../domain/service/piggybank.services";
+import {LinkCache} from "../domain/data-access/redis-link-cache";
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
@@ -10,8 +12,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         const userName = req.body.userName;
         const result = await transactionsServices.createTransaction(transaction, userName);
 
-
-
+        const cache = await LinkCache.getInstance();
+        const piggyBanks = await piggybankServices.getAllPiggyBanks(userName);
+        const json=JSON.stringify(piggyBanks);
+        await cache.setPiggybank(userName, json);
+        await cache.quit();
         context.res = {
 
             body: result,
@@ -27,7 +32,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 "Content-Type": "application/json"
             },
             body: {
-                message: "username or email already exists"
+                message: "creating transaction failed"
             }
         }
     }
