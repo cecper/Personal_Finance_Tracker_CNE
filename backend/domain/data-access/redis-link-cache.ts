@@ -60,6 +60,10 @@ export class LinkCache {
         await this.cacheClient.quit();
     }
 
+    async resetPiggybank(username: string,piggybanks: any) {
+        await this.cacheClient.set(username, "", { EX: 600 });
+        await this.cacheClient.set(username, piggybanks, { EX: 600 });
+    }
     async setPiggybank(username: string, piggybanks: any) {
         await this.cacheClient.set(username, piggybanks, { EX: 600 });
     }
@@ -73,6 +77,30 @@ export class LinkCache {
         const piggybanks = JSON.parse(cachedPiggies);
         piggybanks.push(piggybank);
         const json=JSON.stringify(piggybanks);
+        await this.setPiggybank(username, json);
+    }
+
+    async updatePiggybankBalance(username: string, piggybank: any) {
+        const cachedPiggies = await this.getPiggybank(username);
+        const piggybanks = JSON.parse(cachedPiggies);
+        for (let i = 0; i < piggybanks.length; i++) {
+            if (piggybanks[i].id === piggybank.id) {
+                piggybanks[i].balance = piggybank.balance;
+            }
+        }
+        const json = JSON.stringify(piggybanks);
+        await this.setPiggybank(username, json);
+    }
+
+    async removePiggybankById(username: string, piggybankId: string) {
+        const cachedPiggies = await this.getPiggybank(username);
+        const piggybanks = JSON.parse(cachedPiggies);
+        for (let i = 0; i < piggybanks.length; i++) {
+            if (piggybanks[i].id === piggybankId) {
+                piggybanks.splice(i, 1);
+            }
+        }
+        const json = JSON.stringify(piggybanks);
         await this.setPiggybank(username, json);
     }
 
