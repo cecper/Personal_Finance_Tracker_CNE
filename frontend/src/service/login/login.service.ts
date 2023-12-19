@@ -5,7 +5,7 @@ import {Observable, tap} from "rxjs";
 import * as auth from "../authorization";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from "../../environments/environment"; // Import environment
-
+import { getTokenId } from "../../service/authorization";
 @Injectable({
   providedIn: 'root'
 })
@@ -23,12 +23,12 @@ export class LoginService {
   }
 
   private setSession(authResult:any,username:string) {
-    localStorage.setItem('id_token', authResult.token);
-    localStorage.setItem('username', username);
+    sessionStorage.setItem('id_token', authResult.token);
+    sessionStorage.setItem('username', username);
   }
 
   isAuthenticated() {
-    const token=localStorage.getItem('id_token');
+    const token=getTokenId();
     return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 }

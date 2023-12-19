@@ -16,7 +16,7 @@
           </div>
 
           <div *ngIf="transactions.length > 0">
-            <table class="table bg-dark">
+            <table class=" bg-dark">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -34,7 +34,7 @@
                   <td>{{ transaction.sender }}</td>
                   <td>{{ transaction.receiver }}</td>
                   <a class="bg-dark" routerLink="{{'/transaction/delete/' + transaction.id+'/'+piggybankId}}">
-                    <button class="btn btn-danger mt-3">Delete Transaction</button>
+                    <button class="my-2 btn btn-danger">Delete</button>
                   </a>
                 </tr>
               </tbody>
@@ -53,3 +53,19 @@
     </div>
   </div>
 </div>
+
+<style>
+  th {
+    padding: 0.5em 1em;
+  }
+
+  td {
+    border-top: 1px solid #ccc;
+    padding: 0.5em 1em;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 0;
+  }
+</style>

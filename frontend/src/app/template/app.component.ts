@@ -14,8 +14,7 @@ export class AppComponent {
 
 
   getUsername(): string | null {
-    // Get the username from localStorage
-    return localStorage.getItem('username');
+    return sessionStorage.getItem('username');
   }
 
   updateLoginStatus() {
@@ -24,7 +23,7 @@ export class AppComponent {
   }
 
   logout() {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('id_token');
+    sessionStorage.removeItem('username');
   }
 }
