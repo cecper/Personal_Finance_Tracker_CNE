@@ -5,7 +5,7 @@
         <div class="card-header">
           <h1>Piggybank:</h1>
           <p>Piggybank name: {{ piggybank.name }}</p>
-          <p>Balance: {{ piggybank.balance }}</p>
+          <p>Balance: {{ piggybank.balance | currency:'EUR':'symbol-narrow'}}</p>
 
           <h2>Transaction Overview</h2>
 
