@@ -29,7 +29,7 @@
               <tbody>
                 <tr *ngFor="let transaction of transactions">
                   <td>{{ transaction.name }}</td>
-                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.amount | currency:'EUR':'symbol-narrow'}}</td>
                   <td>{{ transaction.description }}</td>
                   <td>{{ transaction.sender }}</td>
                   <td>{{ transaction.receiver }}</td>
